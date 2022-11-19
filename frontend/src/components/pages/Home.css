@@ -1,0 +1,42 @@
+.container{
+    justify-content: center;
+    margin: 0;
+    align-content: center;
+    color: #000000;
+}
+
+h1{
+   margin-top: 0; 
+}
+.rec-container{
+    padding: 25px;
+    height: 500px;
+    color: #000000;
+    background-color: #c8b7a6;
+}
+
+.discount-container{
+    padding: 25px;
+    height: 500px;
+    color: #000000;
+    background-color: #c29591;
+}
+
+.holiday-container{
+    padding: 25px;
+    height: 500px;
+    color: #000000;
+    background-color: #c8b7a6;
+}
+
+/* .card-container{
+    justify-content: flex-start;
+    width: 365px;
+    padding: 10px;
+    padding-right: 25px;
+}
+
+.typography{
+    color: #000000;
+    padding-bottom: 5px;
+} */
