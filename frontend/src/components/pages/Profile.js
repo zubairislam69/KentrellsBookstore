@@ -9,7 +9,7 @@ const Profile = () => {
   const [active, setActive] = useState("Main");
 
   return (
-    <div className='container'>
+    <div className='profile-container'>
       <div className='sidebar-container'>
         <div className='profile'>
           <div>
@@ -23,12 +23,12 @@ const Profile = () => {
       </div>
 
       <div className='button-container'>
-        <button onClick={ () => setActive("Main") }>Summary</button >
-        <button onClick={ () => setActive("Orders") }>Orders</button >
-        <button onClick={ () => setActive("Account") }>Account</button>
+        <button className='btn' onClick={ () => setActive("Main") }>Summary</button >
+        <button className='btn' onClick={ () => setActive("Orders") }>Orders</button >
+        <button className='btn' onClick={ () => setActive("Account") }>Account</button>
       </div>
 
-      <div className='main-container'>
+      <div className='right-container'>
           {active === "Main" && <Main />}
           {active === "Orders" && <Orders />}
           {active === "Account" && <Account />}

@@ -3,8 +3,8 @@ import "./Orders.css"
 
 const Orders = () => {
   return (
-    <div className='container'>
-        <div className='latest-order'>
+    <div className='orders-container'>
+        <div className='orders-latest-order'>
             <h1>Latest Orders:</h1>
             <h4>Book Name: </h4>
             <h4>Author: </h4>

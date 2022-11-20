@@ -3,8 +3,8 @@ import "./Main.css"
 
 const Main = () => {
   return (
-    <div className='container'>
-        <div className='latest-order'>
+    <div className='main-container'>
+        <div className='main-latest-order'>
             <h1>Latest Order:</h1>
             <h4>Book Name: </h4>
             <h4>Author: </h4>

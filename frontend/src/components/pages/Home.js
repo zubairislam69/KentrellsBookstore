@@ -11,7 +11,7 @@ import "./Home.css";
 
 const Home = () => {
   return (
-    <div className='container'>
+    <div className='home-container'>
       <div className='rec-container'>
 
         <h1>Recommended Books!</h1>
