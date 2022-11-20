@@ -1,0 +1,22 @@
+/* h1{
+    text-align: left;
+}
+
+h2{
+    text-align: center;
+} */
+
+.personal{
+    text-align: left;
+    padding: 25px;
+}
+
+.genre{
+    text-align: left;
+    padding: 25px;
+}
+
+.payment{
+    text-align: left;
+    padding: 25px;
+}

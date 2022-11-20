@@ -1,0 +1,55 @@
+.sidebar-container{
+    padding: 10px;
+}
+
+.main-container{
+    padding: 50px;
+}
+
+.button-container{
+    padding: 20px;
+    margin: auto;
+}
+
+button{
+    /* text-decoration: underline; */
+    cursor: pointer;
+    border: transparent;
+    background-color: transparent;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: 100px;
+    transition-duration: 0.4s;
+}
+
+button:hover{
+    background-color: black;
+    color:white;
+}
+
+img{
+    padding: 25px;
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+}
+
+/* @media only screen and (min-width: 1700px) {
+    .main-container{
+        float: right;
+        width: 80%;
+        padding: 10px;
+        height: 100vh;
+        background-color: #bbb;
+    }
+
+    .sidebar-container{
+        float: left;
+        width: 20%;
+        padding: 10px;
+        height: 100vh;
+        background-color: #aaa;
+    }
+} 
+*/

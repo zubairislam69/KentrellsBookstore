@@ -1,0 +1,13 @@
+h1{
+    text-align: center;
+}
+
+.latest-order{
+    text-align: left;
+    padding: 20px;
+}
+
+.all-orders{
+    text-align: left;
+    padding: 20px;
+}

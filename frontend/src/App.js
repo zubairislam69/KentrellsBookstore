@@ -13,31 +13,31 @@ import Home from './components/pages/Home';
 
 function App() {
 
-  const [backendData, setBackendData] = useState([{}])
+  // const [backendData, setBackendData] = useState([{}])
 
-  useEffect(() => {
-    fetch("/api").then(
-      response => response.json()
-    ).then(
-      data => {
-        setBackendData(data)
-      }
-    )
-  }, [])
+  // useEffect(() => {
+  //   fetch("/api").then(
+  //     response => response.json()
+  //   ).then(
+  //     data => {
+  //       setBackendData(data)
+  //     }
+  //   )
+  // }, [])
   return (
 
-    <div>
-      {(typeof backendData.users === 'undefined') ? (
-        <p>Loading...</p>
-      ) : (
-          backendData.users.map((user, i) => (
-            <p key = {i}> {user} </p>
-          ))
-      )
+  //   <div>
+  //     {(typeof backendData.users === 'undefined') ? (
+  //       <p>Loading...</p>
+  //     ) : (
+  //         backendData.users.map((user, i) => (
+  //           <p key = {i}> {user} </p>
+  //         ))
+  //     )
       
       
-      }
-    </div>
+  //     }
+  //   </div>
 
 
 
@@ -45,21 +45,21 @@ function App() {
 
 
 
-    // <>
-    //   <Navbar />
-    //   <div className="container">
-    //     <Routes>
-    //       <Route path="/" element={<Home />} />
-    //       <Route path="/Login" element={<Login />} />
-    //       <Route path="/Books" element={<Books />} />
-    //       <Route path="/Cart" element={<Cart />} />
-    //       <Route path="/Checkout" element={<Checkout />} />
-    //       <Route path="/Contact" element={<Contact />} />
-    //       <Route path="/Signup" element={<Signup />} />
-    //       <Route path="/Profile" element={<Profile />} />
-    //     </Routes>
-    //   </div>
-    // </>
+    <>
+      <Navbar />
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Books" element={<Books />} />
+          <Route path="/Cart" element={<Cart />} />
+          <Route path="/Checkout" element={<Checkout />} />
+          <Route path="/Contact" element={<Contact />} />
+          <Route path="/Signup" element={<Signup />} />
+          <Route path="/Profile" element={<Profile />} />
+        </Routes>
+      </div>
+    </>
   )
 }
 
