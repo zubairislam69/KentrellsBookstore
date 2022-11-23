@@ -4,7 +4,8 @@
     min-height: 100vh;
     align-items: center;
     justify-content: center;
-    color: red;
+    color: white;
+    /* text-align: left; */
 }
 
 .signup-label{
@@ -12,12 +13,15 @@
 }
 
 .signup-form-container{
+    display: flex;
     background-image: linear-gradient(79deg, #000000, #aaaaaa 48%, #888888, #444444);
     padding: 20px;
     border-width:2px;
     border-style:solid;
     border-color:white;
     border-radius: 10px;
+    flex-direction: column;
+    align-items: center;
 }
 
 .signup-form{
