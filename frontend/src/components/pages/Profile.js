@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import "./Profile.css"
-import pfp from "./images/anonPFP.png"
+import pfp from "../images/anonPFP.png"
 import Main from "./profilePages/Main"
 import Orders from "./profilePages/Orders"
 import Account from "./profilePages/Account"

@@ -31,7 +31,9 @@ const Signup = () => {
 
     }).then((response) => {
     console.log(response)
-  })
+    })
+    
+    
   }
 
   
