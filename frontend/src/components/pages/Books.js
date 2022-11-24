@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Cards from '../Cards';
 import '../Cards.css';
 import Axios from "axios";
+import Modal from '../Modal'
 
 
 function Books() {
@@ -19,17 +20,22 @@ function Books() {
           bookID: books.bookID,
           title: books.title,
           price: books.price,
+          genre: books.genre,
+          isbn: books.isbn,
           publication_date: books.publication_date,
           publisherID: books.publisherID,
           age_level: books.age_level
         }])
       })
 
+
     }).catch(error => {
       console.log(error.response)
     });
 
   }, [])
+
+  
 
   return (
     <>
@@ -45,9 +51,13 @@ function Books() {
                 <CardItem
                   src="images/img-2.jpg"
                   text={books.title}
-                  author={books.age_level}
+                  age={books.age_level}
                   label={books.genre}
+                  price={books.price}
+                  date={books.publication_date}
+                  isbnid={books.isbn}
 
+                  
                 />)
 
             }
