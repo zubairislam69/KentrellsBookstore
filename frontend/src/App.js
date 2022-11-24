@@ -48,6 +48,7 @@ function App() {
     <>
       <Navbar />
       <div className="container">
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
