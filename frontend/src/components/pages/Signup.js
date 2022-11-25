@@ -5,9 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate()
-  const navigateToLogin = () => {
-    navigate("/login")
-  }
 
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
@@ -33,10 +30,8 @@ const Signup = () => {
     console.log(response)
     })
     
-    
+    navigate("/login")
   }
-
-  
 
   // const getAllProfile = async () => {
   //   const newData = await fetch('/signup', {
@@ -73,47 +68,12 @@ const Signup = () => {
     setReturnedData(newData[0])
   }
 
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log(email);
-  // }
-
-
-  const listItems = returnedData.map(
-    (element) => {
-      return (
-          <p>
-            {/* {element.bookID + " "}
-            {element.ISBN + " "}
-            {element.title + " "}
-            {element.price + " "}
-            {element.publication_date + " "}
-            {element.publisherID + " "}
-            {element.genre + " "}
-            {element.age_level + " "} */}
-          
-          {element.profileID + " "}
-          {element.user_name + " "}
-          {element.email + " "}
-          {element.password + " "}
-          {element.age + " "}
-          {element.birth_place + " "}
-          {element.shipping_address + " "}
-
-         
-          </p>
-      )
-    }
-  )
-
-
   return (
     <div className='signup-container'>
       <div className='signup-form-container'>
 
-        {/* onSubmit={handleSubmit} */}
-        {/* <form className='signup-form'> */}
+    
+        <form className='signup-form'>
 
           <label className='signup-label' htmlFor='name'>Username:</label>
           <input
@@ -182,14 +142,8 @@ const Signup = () => {
             name='shippingAddress'
           />
         <button className='signup-btn' onClick={register}> Register </button>
-        {/* <button className='signup-btn' onClick={() => createProfile()}> Register </button> */}
-
-
-        {/* </form> */}
-
-        {/* <button className='signup-btn' onClick={() => getAllProfile()}> Register </button> */}
-
-        <button className='link-btn' onClick={navigateToLogin}>Already Have an Account? Login Here.</button>
+        </form>
+        <button className='link-btn' onClick={() => navigate("/login")}> Already Have an Account? Login Here.</button>
         {/* {listItems} */}
       </div>
     </div>

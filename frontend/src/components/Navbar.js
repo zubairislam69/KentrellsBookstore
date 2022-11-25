@@ -20,13 +20,27 @@
 //     )
 // }
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './Button';
 import './Navbar.css';
-
+import { UserContext } from './pages/UserContext';
 
 function Navbar() {
+    const { user, setUser } = useContext(UserContext)
+
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem("user");
+        console.log("loggedInUser")
+
+        console.log(loggedInUser)
+        if (loggedInUser) {
+            const foundUser = JSON.parse(loggedInUser);
+            setUser(foundUser[0].user_name)
+        }
+    }, []);
+   
+
     const [click, setClick] = useState(false);
     const [button, setButton] = useState(true);
 
@@ -51,7 +65,6 @@ function Navbar() {
 
         
         <>
-            
 
             <nav className='navbar'>
                 <div className='navbar-container'>
@@ -83,32 +96,16 @@ function Navbar() {
                             </Link>
                         </li>
 
-                        <li className='nav-item'>
-                            <Link
-                                to='/profile'
-                                className='nav-links'
-                                onClick={closeMobileMenu}>
-                                Profile
-                            </Link>
-                        </li>
-
-                        <li>
+                       
+                        {/* if user doesnt exist, render login in navbar */}
+                        {!user && <li>
                             <Link
                                 to='/login'
                                 className='nav-links'
                                 onClick={closeMobileMenu}>
                                 Login
                             </Link>
-                        </li>
-
-                        <li>
-                            <Link
-                                to='/signup'
-                                className='nav-links'
-                                onClick={closeMobileMenu}>
-                                Sign Up
-                            </Link>
-                        </li>
+                        </li>}
 
                         <li>
                             <Link
@@ -118,10 +115,19 @@ function Navbar() {
                                 Cart
                             </Link>
                         </li>
+                        {button && <Button buttonStyle='btn--outline'> Cart </Button>}
+
+                        
+                        {user && <li className='nav-item'>
+                            <Link
+                                to='/profile'
+                                className='nav-links'
+                                onClick={closeMobileMenu}>
+                                {user}
+                            </Link>
+                        </li> }
 
                     </ul>
-                    {/* && is a shortcut and returns whatever is after it*/}
-                    {button && <Button buttonStyle='btn--outline'> Cart </Button>}
                 </div>
             </nav>
         </>
