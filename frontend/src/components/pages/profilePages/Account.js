@@ -1,19 +1,33 @@
-import React from 'react'
+import React, {useEffect, useContext} from 'react'
 import "./Account.css"
+import { UserInfoContext } from '../UserInfoContext'
 
 const Account = () => {
+  const { userInfo, setUserInfo } = useContext(UserInfoContext)
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      setUserInfo(foundUser[0])
+    }
+
+  }, []);
+
+
   return (
     <div className='account-container'>
         <h1>Account Information</h1>
 
         <div className='personal'>
-            <h2>Personal Information: </h2>
-            <h4>Name: </h4>
-            <h4>Username: </h4>
-            <h4>Birthday: </h4>
-            <h4>Email: </h4>
-            <h4>Password: </h4>
-            <h4>Address: </h4>
+            <h2>Personal Information </h2>
+            <h4>Username: {userInfo.user_name} </h4>
+            <h4>Email: {userInfo.email}</h4>
+            <h4>Age: {userInfo.age}</h4>
+            <h4>Password: {userInfo.password}</h4>
+            <h4>Birth Place: {userInfo.birth_place}</h4>
+            <h4>Shipping Address: {userInfo.shipping_address}</h4>
         </div>
 
         <div className='genre'>
@@ -22,7 +36,7 @@ const Account = () => {
         </div>
 
         <div className='payment'>
-            <h2>Payent Information: </h2>
+            <h2>Payment Information: </h2>
             <h4>Card 1: </h4>
             <h4>Card 2: </h4>
             <h4>Card 3: </h4>
