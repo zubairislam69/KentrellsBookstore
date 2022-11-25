@@ -7,7 +7,7 @@ import Axios from "axios";
 import Modal from '../Modal'
 
 
-function Books() {
+function Books({handleAddProducts}) {
 
   const [bookArr, setBookArr] = useState([])
 
@@ -21,7 +21,7 @@ function Books() {
           title: books.title,
           price: books.price,
           genre: books.genre,
-          isbn: books.isbn,
+          ISBN: books.isbn,
           publication_date: books.publication_date,
           publisherID: books.publisherID,
           age_level: books.age_level
@@ -34,6 +34,7 @@ function Books() {
     });
 
   }, [])
+
 
   
 
@@ -49,13 +50,15 @@ function Books() {
             {
               bookArr.map((books) =>
                 <CardItem
+                  handleAddProducts = {handleAddProducts}
                   src="images/img-2.jpg"
+                  id={books.bookID}
                   text={books.title}
                   age={books.age_level}
                   label={books.genre}
                   price={books.price}
                   date={books.publication_date}
-                  isbnid={books.isbn}
+                  isbn={books.ISBN}
 
                   
                 />)
@@ -69,5 +72,3 @@ function Books() {
 }
 
 export default Books;
-
-

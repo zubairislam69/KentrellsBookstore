@@ -16,6 +16,7 @@
     margin: 0 auto;
   }
   
+  
   .cards__wrapper {
     position: relative;
     margin: 50px 0 40px;
@@ -23,11 +24,13 @@
   
   .cards__items {
     margin-bottom: 12px;
+    flex-wrap: wrap;
   }
   
   .cards__item {
     display: flex;
     flex: 1;
+    min-width: 170px;
     margin: 0 1rem;
     border-radius: 0px;
   }
@@ -39,7 +42,6 @@
     box-shadow: 0 6px 20px rgba(56, 125, 255, 0.17);
     -webkit-filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
     filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
-    border-radius: 10px;
     overflow: hidden;
     text-decoration: none;
   }
@@ -92,6 +94,7 @@
   
   .cards__item__info {
     padding: 20px 30px 30px;
+    margin-bottom: 0px;
   }
   
   .cards__item__text {

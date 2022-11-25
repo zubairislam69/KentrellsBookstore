@@ -9,6 +9,18 @@ export default function Modal (props) {
         setModal(!modal)
     }
 
+
+
+    const {id, text, label, author, price, src, age, isbn, date} = props;
+
+
+    const [addToCart, setCart] = useState([])
+
+    const handleClick = (props) => {
+        setCart([...addToCart,props])
+        console.log(addToCart);
+    }
+    
     if (modal) {
         document.body.classList.add('active-modal')
     } else{
@@ -20,27 +32,35 @@ export default function Modal (props) {
         
         <button 
         className="btn-modal"
+
         onClick={toggleModal}>
             Learn More
         </button>
         {modal && ( //if modal is true return the modal using short circuit operator
             ReactDOM.createPortal(
-                <React.Fragment>
-            <div className="modal">
-            <div className="overlay">
-                <div className="modal-content">
+            <React.Fragment>
+                <div className="modal">
+                <div className="overlay">
+                    <div className="modal-content">
                     <img 
                     src={props.src}
                     alt="" 
                     className="modal-image" 
                     />
-                    <h1>Title: {props.text}</h1>
-                    <h3>Genre: {props.genre}</h3>
-                    <h3>price: {props.price}</h3>
-                    <h3>age range: {props.age}</h3>
-                    <h5>Date Of Publication: {props.date}</h5>
-                    <h5>ISBN: {props.isbn}</h5>
+                    <div className="modal-text">
+                        <h1 >Title: {text}</h1>
+                        <h3>Genre: {label}</h3>
+                        <h3>price: {price}</h3>
+                        <h3>age range: {age}</h3>
+                        <h5>Date Of Publication: {date}</h5>
+                        <h5>ISBN: {isbn}</h5>
+                        <button
+                            onClick={() => props.handleAddProducts(props)} >
+                            Add To Cart
+                        </button>
 
+                    </div>
+    
                     <button className="close-modal"
                     onClick={toggleModal}
                     >Close</button>
