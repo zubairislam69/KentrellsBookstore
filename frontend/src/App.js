@@ -18,7 +18,6 @@ function App() {
   const [user, setUser] = useState("")
   const [userInfo, setUserInfo] = useState("Hello")
 
-<<<<<<< HEAD
   // const [backendData, setBackendData] = useState([{}])
 
   // useEffect(() => {
@@ -59,8 +58,6 @@ function App() {
     }
   }
     
-=======
->>>>>>> b21083f1da5d427535ca9b5280051c98c30d4d46
   return (
     <>
       <UserContext.Provider value={{ user, setUser }}> 
@@ -70,15 +67,14 @@ function App() {
 
         <Routes CartItems={CartItems}>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/books" element={<Books handleAddProducts = {handleAddProducts}/>} />
           <Route path="/checkout" exact
           element  = {
             <Checkout CartItems={CartItems} handleAddProducts = {handleAddProducts} handleRemoveProducts= {handleRemoveProducts}  />
           }
-            component = {
-              <Cart />
-            }
+            // component = {
+            //   <Cart />
+            // }
 
           />
           <Route path="/login" element={
@@ -89,9 +85,7 @@ function App() {
             </UserContext.Provider>
           }/>
 
-          <Route path="/books" element={<Books />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/signup" element={<Signup />} />
 

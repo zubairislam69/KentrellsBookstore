@@ -109,13 +109,13 @@ function Navbar() {
 
                         <li>
                             <Link
-                                to='/cart'
-                                className='nav-links-mobile'
+                                to='/checkout'
+                                className='nav-links'
                                 onClick={closeMobileMenu}>
                                 Cart
                             </Link>
                         </li>
-                        {button && <Button buttonStyle='btn--outline'> Cart </Button>}
+                        {/* {button && <Button buttonStyle='btn--outline'> Cart </Button>} */}
 
                         
                         {user && <li className='nav-item'>
