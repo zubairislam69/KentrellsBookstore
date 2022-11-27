@@ -5,7 +5,8 @@ import Modal from './Modal';
 function CardItem(props) {
 
     const { handleAddProducts } = props;
-    const {id, text, label, author, price, src, age, isbn,date} = props;
+    const { id, text, label, author, price, src, age, isbn, date } = props;
+    
     return (
         <>
             <li className='cards__item'>

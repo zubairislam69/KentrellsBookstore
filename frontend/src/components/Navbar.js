@@ -1,25 +1,3 @@
-// import { Link } from "react-router-dom"
-// import React from 'react'
-// export default function Navbar() {
-//     return (
-//         <nav className="nav">
-            // <Link to="/" className="site-title">
-            //     Kentrells Bookstore
-            // </Link>
-            // <ul>
-            //     <Link to="/Books">Books</Link>
-            //     {/* <Link to="/Checkout">Checkout</Link> */}
-            //     {/* <Link to="/Contact">Contact</Link> */}
-            //     <Link to="/Profile">Profile</Link>
-            //     <Link to="/Login">Login</Link>
-            //     <Link to="/Signup">Signup</Link>
-            //     <Link to="/Cart">Cart</Link>
-
-//             </ul>
-//         </nav>
-//     )
-// }
-
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './Button';
@@ -29,6 +7,7 @@ import { UserContext } from './pages/UserContext';
 function Navbar() {
     const { user, setUser } = useContext(UserContext)
 
+    
     useEffect(() => {
         const loggedInUser = localStorage.getItem("user");
         console.log("loggedInUser")
@@ -112,7 +91,7 @@ function Navbar() {
                                 to='/checkout'
                                 className='nav-links'
                                 onClick={closeMobileMenu}>
-                                Cart
+                                Cart 
                             </Link>
                         </li>
                         {/* {button && <Button buttonStyle='btn--outline'> Cart </Button>} */}

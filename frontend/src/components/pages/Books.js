@@ -1,15 +1,44 @@
-import React from 'react'
-import CardItem from '../CardItem';
-import { useState, useEffect } from 'react';
-import Cards from '../Cards';
-import '../Cards.css';
+import React, { useState, useEffect, useContext } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Axios from "axios";
-import Modal from '../Modal'
+import CardItem from "../CardItem";
+import "../search.css"
+import Modal from '../Modal';
+import { Link } from 'react-router-dom';
+
+function Arrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", background: "black" }}
+      onClick={onClick}
+    />
+  );
+}
 
 
-function Books({handleAddProducts}) {
+const Books = (props) => {
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    nextArrow: <Arrow />,
+    prevArrow: <Arrow />
+  };
+  const { id, text, label, author, price, src, age, isbn, date, handleAddProducts } = props;
 
   const [bookArr, setBookArr] = useState([])
+
+
+
+  console.log("bookArr")
+  console.log(bookArr)
 
   useEffect(() => {
     Axios.post('http://localhost:5000/books').then((response) => {
@@ -21,7 +50,7 @@ function Books({handleAddProducts}) {
           title: books.title,
           price: books.price,
           genre: books.genre,
-          ISBN: books.isbn,
+          ISBN: books.ISBN,
           publication_date: books.publication_date,
           publisherID: books.publisherID,
           age_level: books.age_level
@@ -36,39 +65,50 @@ function Books({handleAddProducts}) {
   }, [])
 
 
-  
-
   return (
-    <>
+    <div className="App">
+      <Slider {...settings}>
+        {bookArr.map((item) => (
+          <div className="card" >
+            <div className="card-top">
+              <h1> {item.title} </h1>
 
-      <h1>Here</h1>
+            </div>
+            <div className="card-bottom">
+              <h3> {item.price}</h3>
+              <p className="category"> {item.genre} </p>
+            </div>
+            <Modal
+              handleAddProducts={handleAddProducts}
+              src={item.src}
+              title={item.title}
+              price={item.price}
+              date={item.publication_date}
+              genre={item.genre}
+              age={item.age_level}
+              isbn={item.ISBN}
+              bookID = {item.bookID}
 
-      <div className="cards__container">
-        <div className="cards__wrapper">
+            />
 
-          <ul className="cards__items">
-            {
-              bookArr.map((books) =>
-                <CardItem
-                  handleAddProducts = {handleAddProducts}
-                  src="images/img-2.jpg"
-                  id={books.bookID}
-                  text={books.title}
-                  age={books.age_level}
-                  label={books.genre}
-                  price={books.price}
-                  date={books.publication_date}
-                  isbn={books.ISBN}
+            <button
+              onClick={() => handleAddProducts(item)} >
+              {/* // onClick={() => setProduct((prevState) =>
+                            //     [...prevState, { title: item.title, price: item.price, id: item.bookID }])} >*/ }
 
-                  
-                />)
 
-            }
-          </ul>
-        </div>
-      </div>
-    </>
-  )
+              Add To Cart
+            </button>
+          </div>
+
+        ))}
+
+      </Slider>
+
+
+    </div>
+  );
 }
 
-export default Books;
+export default Books
+

@@ -13,32 +13,30 @@ import Home from './components/pages/Home';
 import Logout from './components/pages/Logout';
 import { UserContext } from './components/pages/UserContext';
 import { UserInfoContext } from './components/pages/UserInfoContext';
-
+import Search from './components/Search';
+import { CartContext } from './components/CartContext'
 function App() {
   const [user, setUser] = useState("")
   const [userInfo, setUserInfo] = useState("Hello")
+  const [product, setProduct] = useState([])
 
-  // const [backendData, setBackendData] = useState([{}])
 
-  // useEffect(() => {
-  //   fetch("/api").then(
-  //     response => response.json()
-  //   ).then(
-  //     data => {
-  //       setBackendData(data)
-  //     }
-  //   )
-  // }, [])
-
+  //in video, 27 min mark
 
   const [CartItems, setCart] = useState([]);
+  console.log("CartItems")
 
+  console.log(CartItems)
   const handleAddProducts = (product) => {
+    console.log("product")
+    console.log(product)
+    const ProductExist = CartItems.find((item) => item.bookID === product.bookID);
 
-    const ProductExist = CartItems.find((item) => item.id === product.id);
+    console.log("ProductExist")
+    console.log(ProductExist)
 
     if (ProductExist){
-      setCart(CartItems.map ((item) => item.id === product.id ?
+      setCart(CartItems.map((item) => item.bookID === product.bookID ?
       {...ProductExist, quantity: ProductExist.quantity + 1}: item)
       );
     } else{
@@ -48,11 +46,11 @@ function App() {
   }
 
   const handleRemoveProducts = (product) => {
-    const ProductExist = CartItems.find((item) => item.id === product.id);
+    const ProductExist = CartItems.find((item) => item.bookID === product.bookID);
     if(ProductExist.quantity === 1){
-      setCart(CartItems.map((item) => item.id !== product.id));
+      setCart(CartItems.filter((item) => item.bookID !== product.bookID));
     } else{
-      setCart(CartItems.map ((item) => item.id === product.id ?
+      setCart(CartItems.map((item) => item.bookID === product.bookID ?
       {...ProductExist, quantity: ProductExist.quantity - 1}: item)
       );
     }
@@ -65,16 +63,19 @@ function App() {
       </UserContext.Provider>
       <div className="container">
 
-        <Routes CartItems={CartItems}>
+        <Routes >
           <Route path="/" element={<Home />} />
-          <Route path="/books" element={<Books handleAddProducts = {handleAddProducts}/>} />
+          <Route path="/books" element={<Books CartItems={CartItems} handleAddProducts={handleAddProducts} handleRemoveProducts={handleRemoveProducts} />} />
           <Route path="/checkout" exact
-          element  = {
-            <Checkout CartItems={CartItems} handleAddProducts = {handleAddProducts} handleRemoveProducts= {handleRemoveProducts}  />
+            element={
+              <CartContext.Provider value={{ product, setProduct }}>
+
+                <Checkout CartItems={CartItems} handleAddProducts={handleAddProducts} handleRemoveProducts={handleRemoveProducts}
+                />
+              </CartContext.Provider>
+
           }
-            // component = {
-            //   <Cart />
-            // }
+
 
           />
           <Route path="/login" element={
@@ -88,6 +89,13 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/search"
+            element={
+              <CartContext.Provider value={{product, setProduct}}>
+                <Search CartItems={CartItems} handleAddProducts={handleAddProducts} handleRemoveProducts={handleRemoveProducts} />
+                </CartContext.Provider>
+
+              } />
 
           <Route path="/profile" element={
             <UserContext.Provider value={{ user, setUser}}>
