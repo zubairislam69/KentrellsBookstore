@@ -10,6 +10,8 @@ const Search = () => {
 
   const [booksFound, setBooksFound] = useState([])
 
+  
+
   useEffect(() => {
     Axios.post('http://localhost:5000/books').then((response) => {
 
@@ -39,7 +41,12 @@ const Search = () => {
     let results2 = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
     console.log("results2");
     console.log(results2);
-    setBooksFound(results2)
+    if (!search) {
+      setBooksFound([])
+    } else {
+      setBooksFound(results2)
+
+    }
   }, [search])
 
   return (
