@@ -35,6 +35,19 @@ app.post("/books", (req, res) => {
     })
 })
 
+app.post("/fantasy", (req, res) => {
+    const p = 
+    db.query(
+        "SELECT * FROM Book WHERE genre LIKE '%fantasy%'",  (err, result) => {
+            if (err) {
+                console.log(err)
+            }
+            res.send(result)
+        })
+})
+
+
+
 app.post("/signup", (req, res) => {
 
     const profileID = null

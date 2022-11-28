@@ -5,7 +5,7 @@ import Modal from './Modal';
 function CardItem(props) {
 
     const { handleAddProducts } = props;
-    const { id, text, label, author, price, src, age, isbn, date } = props;
+    const {genre, id, title, price, src, age, isbn, publicationDate } = props;
     
     return (
         <>
@@ -13,25 +13,26 @@ function CardItem(props) {
                 
             
                 <Link className='cards__item__link'>
-                    <figure className='cards__item__pic-wrap' data-category={label}>
+                    {/* <figure className='cards__item__pic-wrap' data-category={label}>
                         <img
                             className='cards__item__img'
                             alt='Travel Image'
                             src={src}
                         />
-                    </figure>
+                    </figure> */}
                     <div className='cards__item__info'>
-                        <h5 className='cards__item__text'>{text}</h5>
+                        <h5 className='cards__item__text'>{title}</h5>
                         <h6 className='cards__item__text'>{id}</h6>
                         <Modal
                             handleAddProducts = {handleAddProducts}
                             src={src}
-                            text={text}
+                            title={title}
                             price={price}
-                            date={date}
-                            genre={label}
+                            date={publicationDate}
+                            genre={genre}
                             age={age}
                             isbn={isbn}
+                            bookID = {id}
 
                         />
 

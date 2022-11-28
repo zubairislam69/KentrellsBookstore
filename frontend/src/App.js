@@ -64,6 +64,7 @@ function App() {
       <div className="container">
 
         <Routes >
+          <Route path="/search" element={<Search />} />
           <Route path="/" element={<Home />} />
           <Route path="/books" element={<Books CartItems={CartItems} handleAddProducts={handleAddProducts} handleRemoveProducts={handleRemoveProducts} />} />
           <Route path="/checkout" exact
