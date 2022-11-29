@@ -3,10 +3,19 @@ body.active-modal {
 }
 
 .btn-modal {
-    padding: 10px 20px;
+    padding: 5px 20px;
     display: block;
-    margin: 100px auto 0;
+    margin: 20px auto 0;
+    margin-bottom: 10px;
     font-size: 18px;
+    color: white;
+    background-color: black;
+   
+}
+
+.btn-modal:hover{
+    background-color: grey;
+    transition: all 0.2s ease-out;
 }
 
 .modal, .overlay {

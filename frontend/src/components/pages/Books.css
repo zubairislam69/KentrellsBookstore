@@ -14,40 +14,80 @@ body {
 
 .slick-list {
     margin: 0 -10px;
+    
 }
+
+/* div.slick-slide.slick-active{
+
+    width: 300px !important;
+
+} */
 
 .card {
     border: 1px solid #fff;
-    background: black;
-    border-radius: 8px;
+    background: fff;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    box-shadow: 5px 10px #888888;
+    border-radius: 0px;
     overflow: hidden;
 
-    height: 400px;
-    color: #fff;
+    height: 500px;
+    width: 400px;
+    color: black;
+}
+
+.card-button{
+    
+        padding: 5px 20px;
+        display: block;
+        margin: 20px auto 0;
+        margin-bottom: 10px;
+        font-size: 18px;
+        color: white;
+        background-color: black;
+    
+    
+
+}
+
+.card-button:hover{
+    background-color: grey;
+    transition: all 0.2s ease-out;
 }
 
 .card-top h1 {
     font-size: 1rem;
-    margin: 10px 20px;
+}
+
+.card-top h1 {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.card-top img {
+    border-radius: 0;
 }
 
 .card-top>img {
-    width: 100%;
-    height: 100%;
+    margin: auto;
+    width: 200px;
+    height: 300px;
     object-fit: cover;
 }
 
-.card-bottom {
-    margin: 10px 20px;
+.card-bottom h3 {
+    font-size: 1rem;
 }
 
 .category {
     position: relative;
+    font-size: 0.7rem;
 }
 
 .category::before {
     content: '';
-    background: rgb(255, 61, 61);
+    background: rgb(0, 0, 0);
     position: absolute;
     top: calc(100% + 10px);
     left: 0;

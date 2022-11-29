@@ -28,6 +28,7 @@ const Books = (props) => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
+    variableWidth: true,
     nextArrow: <Arrow />,
     prevArrow: <Arrow />
   };
@@ -35,6 +36,8 @@ const Books = (props) => {
 
   const [bookArr, setBookArr] = useState([])
   const [fantasyArr, setFantasyArr] = useState([])
+
+
 
 
 
@@ -51,10 +54,12 @@ const Books = (props) => {
           title: books.title,
           price: books.price,
           genre: books.genre,
-          ISBN: books.ISBN,
+          isbn: books.isbn,
           publication_date: books.publication_date,
           publisherID: books.publisherID,
-          age_level: books.age_level
+          age_level: books.age_level,
+          src: books.src
+
         }])
       })
 
@@ -72,10 +77,11 @@ const Books = (props) => {
           title: books.title,
           price: books.price,
           genre: books.genre,
-          ISBN: books.ISBN,
+          isbn: books.isbn,
           publication_date: books.publication_date,
           publisherID: books.publisherID,
-          age_level: books.age_level
+          age_level: books.age_level,
+          src: books.src
         }])
       })
 
@@ -94,9 +100,11 @@ const Books = (props) => {
       <h2> All Books </h2>
       <Slider {...settings}>
         {bookArr.map((item) => (
-          <div className="card" >
+          <div style={{ width:300 }} className="card" >
             <div className="card-top">
-             
+              <img 
+                  src={item.src}
+              />
               <h1> {item.title} </h1>
 
             </div>
@@ -112,12 +120,12 @@ const Books = (props) => {
               date={item.publication_date}
               genre={item.genre}
               age={item.age_level}
-              isbn={item.ISBN}
+              isbn={item.isbn}
               bookID = {item.bookID}
 
             />
 
-            <button
+            <button className="card-button"
               onClick={() => handleAddProducts(item)} >
               {/* // onClick={() => setProduct((prevState) =>
                             //     [...prevState, { title: item.title, price: item.price, id: item.bookID }])} >*/ }
@@ -136,8 +144,11 @@ const Books = (props) => {
 
       <Slider {...settings}>
       {fantasyArr.map((item) => (
-        <div className="card" >
+        <div style={{ width:300 }} className="card" >
           <div className="card-top">
+            <img 
+            src={item.src}
+            />
             <h1> {item.title} </h1>
 
           </div>
