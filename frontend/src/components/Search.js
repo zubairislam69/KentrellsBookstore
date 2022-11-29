@@ -10,8 +10,6 @@ const Search = () => {
 
   const [booksFound, setBooksFound] = useState([])
 
-  
-
   useEffect(() => {
     Axios.post('http://localhost:5000/books').then((response) => {
 

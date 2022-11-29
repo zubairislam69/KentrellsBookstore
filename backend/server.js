@@ -25,6 +25,26 @@ app.use(express.json())
     
 //     })
 // })
+
+app.post("/orders", (req, res) => {
+    const profileID = req.body.profileID
+    console.log("profileID")
+    console.log(req.body.profileID)
+    db.query(
+        `SELECT o.orderID, b.bookID, b.title, b.price
+        FROM Orders o, Book_Orders bo, Book b, Profile p 
+        WHERE bo.orderID = o.orderID AND bo.bookID = b.bookID 
+        AND o.profileID = p.profileID AND p.profileID = ?`, [profileID],
+      
+        (err, result) => {
+            if (err) {
+                console.log(err)
+            }
+            res.send(result)
+        })
+})
+
+
 app.post("/books", (req, res) => {
     db.query(
         "SELECT * FROM Book", (err, result) => {
@@ -70,8 +90,6 @@ app.post("/signup", (req, res) => {
 })
 
 app.post("/login", (req, res) => {
-
-   
     const username = req.body.username
     const password = req.body.password
     const qr = "SELECT * FROM Profile WHERE user_name = ? AND password = ?"
