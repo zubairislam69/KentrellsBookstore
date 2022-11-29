@@ -2,7 +2,7 @@
 
 ### Zubair Islam (100778152), Hanzalah Patel (100785622), Mohsin Rehman (100788028), Tal Marianovski (100700316), Sabeh Khalid(100754735)
 
-Follow these instructions on how to install vscode: https://scribehow.com/shared/How_to_Install_Visual_Studio_code_in_your_system__gxqPDVNVRjeGCZLdCp-RWA
+Follow these instructions on how to install VS-Code: https://scribehow.com/shared/How_to_Install_Visual_Studio_code_in_your_system__gxqPDVNVRjeGCZLdCp-RWA
 
 After installing VS-Code:
 1) Copy the github repository link of the project by pressing code and copying the link
