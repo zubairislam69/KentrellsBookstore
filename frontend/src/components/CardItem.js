@@ -36,7 +36,7 @@ function CardItem(props) {
 
                         />
 
-                        <button
+                        <button className="card-button"
                             onClick={() => handleAddProducts(props)} >
                             Add To Cart
                         </button>

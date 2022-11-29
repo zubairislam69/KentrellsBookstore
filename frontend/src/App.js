@@ -1,5 +1,5 @@
 //import './App.css';
-import React, {useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import { Route, Routes } from "react-router-dom"
 import Navbar from './components/Navbar';
 import Books from './components/pages/Books';
@@ -16,11 +16,14 @@ import { UserInfoContext } from './components/pages/UserInfoContext';
 import { OrderInfoContext } from './components/pages/OrderInfoContext';
 import Search from './components/Search';
 import { CartContext } from './components/CartContext'
+
 function App() {
   const [user, setUser] = useState()
   const [userInfo, setUserInfo] = useState()
+
   const [product, setProduct] = useState([])
   const [orderInfo, setOrderInfo] = useState()
+  const [profileIDCart, setProfileIDCart] = useState()
 
   
   const [CartItems, setCart] = useState([]);
@@ -70,9 +73,12 @@ function App() {
           <Route path="/checkout" exact
             element={
               <CartContext.Provider value={{ product, setProduct }}>
+                <UserInfoContext.Provider value={{ userInfo, setUserInfo }}>
 
                 <Checkout CartItems={CartItems} handleAddProducts={handleAddProducts} handleRemoveProducts={handleRemoveProducts}
-                />
+                  />
+                </UserInfoContext.Provider>
+
               </CartContext.Provider>
 
           }
@@ -81,15 +87,24 @@ function App() {
           />
           <Route path="/login" element={
             <UserContext.Provider value={{ user, setUser }}>
-              <UserInfoContext.Provider value={{ userInfo, setUserInfo }}>
+              <UserInfoContext.Provider value={{ userInfo, setUserInfo}}>
                 <OrderInfoContext.Provider value={{ orderInfo, setOrderInfo }}>
-                  <Login />
+                  <CartContext.Provider value={{ profileIDCart, setProfileIDCart }}>
+                    <Login />
+                  </CartContext.Provider>
                 </OrderInfoContext.Provider>
               </UserInfoContext.Provider>
             </UserContext.Provider>
           }/>
 
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart" element={
+            <CartContext.Provider value={{ profileIDCart, setProfileIDCart }}>
+              <UserInfoContext.Provider value={{ userInfo, setUserInfo }}>
+                <Cart CartItems={CartItems} handleAddProducts={handleAddProducts} handleRemoveProducts={handleRemoveProducts} />
+              </UserInfoContext.Provider>
+
+            </CartContext.Provider>
+          } />
           <Route path="/contact" element={<Contact />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/search"

@@ -99,7 +99,7 @@ function Navbar() {
 
                         <li>
                             <Link
-                                to='/checkout'
+                                to='/cart'
                                 className='nav-links'
                                 onClick={closeMobileMenu}>
                                 Cart 

@@ -1,83 +1,69 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import { CartContext } from './CartContext';
+import { UserInfoContext } from './pages/UserInfoContext';
+import { useNavigate } from "react-router-dom";
+
+import Axios from 'axios'
 
 const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
+  const { profileIDCart, setProfileIDCart } = useContext(CartContext)
+  const { userInfo, setUserInfo } = useContext(UserInfoContext)
+  const [profileID, setProfileID] = useState()
   
-  const { product, setProduct } = useContext(CartContext)
+  const navigate = useNavigate()
 
-  
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      setProfileID(foundUser[0].profileID)
+    }
+
+  }, []);
+
+
+
+  console.log("profID")
+  // console.log(userInfo.profileID)
+
   console.log("CartItems IN CART")
 
   console.log(CartItems)
+
+ 
+  console.log("book IDS")
+  
+  const ordersBookID = CartItems.map((item) => {
+    return item.bookID
+  })
+
+  console.log(ordersBookID)
+
   const totalPrice = CartItems.reduce((price, item) =>
-    price + item.quantity * item.price,0
+    price + item.quantity * item.price, 0
   )
 
+  console.log(parseFloat(totalPrice).toFixed(2))
+
+  const handleSubmit = async () => {
+    const orderInfo = { profileID: profileID, price: parseFloat(totalPrice).toFixed(2), ordersBookID: ordersBookID };
+
+    const response = await Axios.post(
+      "http://localhost:5000/checkout",
+      orderInfo
+    );
+
+    
+      navigate("/")
+  }
+  
   
 
-  // const totalPrice = product.reduce((accumulator, object) => {
-  //   return accumulator + object.price;
-  // }, 0);
-  
-
-  // const [price, setPrice] = useState(0)
-
-  // console.log("price")
-  // console.log(price)
-  // // const totalPrice = 0
-  
-  // const [num, setNum] = useState(0)
-  // const [quantity, setQuantity] = useState(1)
-
-  // const add = (item) => {
-  //   setNum((prevState) => prevState + item)
-  //   setQuantity((prevState) => prevState + 1)
-  // }
-
-  // const remove = (item) => {
-  //   if (num != 0) {
-  //     setNum((prevState) => prevState - item)
-  //     setQuantity((prevState) => prevState - 1)
-  //   }
-
-  //   if (num < 0) {
-  //     setNum(0)
-  //     setQuantity(0)
-  //   }
-  // }
-
-
-  // console.log("num")
-
-  // console.log(num)
   
   return (
+    <>
     <div className='cart-items'>
-      
-
-
-      {/* {product.map((item) => 
-        // setPrice((prevState) => prevState += item.price)
-
-        (
-          <>
-            <div>
-            {item.title} {item.price} id: {item.id} Quantity: {quantity}
-            </div>
-          <button onClick={() => add(item.price)}> + </button>
-          <button onClick={() => remove(item.price)}> - </button>
-          </>
-        )
-      )}
-      
-      Total Price: {parseFloat(num).toFixed(2)} */}
-
-
-
-
-
-
-
       <div className="div cart-items-total-price-name">
         Total Price
         <div className="div cart-items-total-price">
@@ -95,7 +81,7 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
             (<div key={item.bookID} 
             className="cart-items-list">
             <img className = 'cart-items-image'
-            src="images/img-9.jpg" 
+            src={item.src}
             alt={item.text}
              />
             <div className='cart-items-name'>{item.title}</div>
@@ -111,8 +97,14 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
 
     </div> 
     
-  </div>
-  )
-};
+      </div>
+      
+      <br/>
+      <button onClick = {handleSubmit}> Checkout </button>
+    </>
+
+      )
+    
+}
 
 export default Cart;

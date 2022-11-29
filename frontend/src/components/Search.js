@@ -20,7 +20,7 @@ const Search = () => {
           title: books.title,
           price: books.price,
           genre: books.genre,
-          ISBN: books.ISBN,
+          isbn: books.isbn,
           publication_date: books.publication_date,
           publisherID: books.publisherID,
           age_level: books.age_level
@@ -60,7 +60,7 @@ const Search = () => {
               Filter By: 
               <input type= "checkbox" /> Author
               <input type="checkbox" /> Title
-              <input type="checkbox" /> Genre
+
 
         
       </form>
@@ -79,7 +79,7 @@ const Search = () => {
           age={item.age_level}
           genre={item.genre}
           publicationDate={item.publication_date}
-          isbn={item.ISBN}
+          isbn={item.isbn}
           
         />
       ))}

@@ -5,15 +5,17 @@ import Axios from 'axios'
 import { UserContext} from './UserContext'
 import { UserInfoContext } from './UserInfoContext';
 import { OrderInfoContext } from './OrderInfoContext';
+import { CartContext } from '../CartContext';
 
 const Login = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [loginStatus, setLoginStatus] = useState("")
 
-  const { userInfo, setUserInfo } = useContext(UserInfoContext)
+  const { userInfo, setUserInfo} = useContext(UserInfoContext)
   const { user, setUser } = useContext(UserContext)
   const { orderInfo, setOrderInfo } = useContext(OrderInfoContext)
+  const { profileIDCart, setProfileIDCart } = useContext(CartContext)
 
   const navigate = useNavigate()
 
@@ -27,16 +29,21 @@ const Login = () => {
       userLog
     );
 
-    console.log("response.data[0].profileID")
-    console.log(response.data[0].profileID)
+    setProfileIDCart(response.data[0].profileID)
+
     const profID = { profileID: response.data[0].profileID };
 
     const response2 = await Axios.post(
       "http://localhost:5000/orders",
       profID,
     );
-    console.log("response2")
-    console.log(response2.data)
+
+
+    // const response3 = await Axios.post(
+    //   "http://localhost:5000/checkout",
+    //   profID,
+    // );
+    
     setOrderInfo(response2.data)
     setUserInfo(response.data[0])
     setUser(response.data[0].user_name)
@@ -45,6 +52,8 @@ const Login = () => {
     navigate("/")
   }
 
+  console.log("profID LOGGING")
+  console.log(profileIDCart)
   
   return (
     <>

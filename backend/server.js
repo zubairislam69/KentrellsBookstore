@@ -91,6 +91,50 @@ app.post("/signup", (req, res) => {
 
 })
 
+app.post("/checkout", (req, res) => {
+    let date = new Date();
+    let dd = String(date.getDate()).padStart(2, '0');
+    let mm = String(date.getMonth() + 1).padStart(2, '0');
+    let yyyy = date.getFullYear();
+
+    date = yyyy + '-' + dd + '-' + mm;
+
+
+    const orderID = null
+    const profileID = req.body.profileID //good
+    const price = req.body.price //need
+    
+    const ordersBookID = req.body.ordersBookID
+    console.log(profileID)
+    console.log(price)
+    console.log(ordersBookID)
+
+    db.query(
+        "INSERT INTO Orders VALUES (?, ?, ?, ?)", [orderID, profileID, price, date], (err, result) => {
+            if (err) {
+                console.log(err)
+            }
+            console.log(result)
+    })
+
+
+    for (let i = 0; i < ordersBookID.length; i++) {
+        db.query(
+            `INSERT INTO Book_Orders (bookID, orderID) 
+            SELECT ?, orderID
+            FROM orders ORDER BY orderID DESC LIMIT 1`, [ordersBookID[i]], (err, result) => {
+                if (err) {
+                    console.log(err)
+                }
+                console.log(result)
+            })
+    }
+    
+    
+    
+
+})
+
 app.post("/login", (req, res) => {
     const username = req.body.username
     const password = req.body.password

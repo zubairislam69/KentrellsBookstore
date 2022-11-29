@@ -164,12 +164,12 @@ const Books = (props) => {
             date={item.publication_date}
             genre={item.genre}
             age={item.age_level}
-            isbn={item.ISBN}
+            isbn={item.isbn}
             bookID={item.bookID}
 
           />
 
-          <button
+          <button className="card-button"
             onClick={() => handleAddProducts(item)} >
             {/* // onClick={() => setProduct((prevState) =>
                             //     [...prevState, { title: item.title, price: item.price, id: item.bookID }])} >*/ }
