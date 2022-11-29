@@ -31,10 +31,12 @@ app.post("/orders", (req, res) => {
     console.log("profileID")
     console.log(req.body.profileID)
     db.query(
-        `SELECT o.orderID, b.bookID, b.title, b.price
-        FROM Orders o, Book_Orders bo, Book b, Profile p 
-        WHERE bo.orderID = o.orderID AND bo.bookID = b.bookID 
-        AND o.profileID = p.profileID AND p.profileID = ?`, [profileID],
+
+        
+        `SELECT o.orderID, b.bookID, b.title, b.price, a.name AS author_name
+FROM Orders o, Book_Orders bo, Book b, Profile p, book_author ba JOIN author a 
+WHERE bo.orderID = o.orderID AND bo.bookID = b.bookID AND ba.bookID = b.bookID AND  a.authorID = ba.authorID
+AND o.profileID = p.profileID AND p.profileID = ?`, [profileID],
       
         (err, result) => {
             if (err) {
