@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Axios from 'axios'
 import { UserContext} from './UserContext'
 import { UserInfoContext } from './UserInfoContext';
+import { OrderInfoContext } from './OrderInfoContext';
 
 const Login = () => {
   const [username, setUsername] = useState("")
@@ -12,19 +13,31 @@ const Login = () => {
 
   const { userInfo, setUserInfo } = useContext(UserInfoContext)
   const { user, setUser } = useContext(UserContext)
-  
+  const { orderInfo, setOrderInfo } = useContext(OrderInfoContext)
+
   const navigate = useNavigate()
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const userLog = { username: username, password: password };
-
+    
     // send the username and password to the server
     const response = await Axios.post(
       "http://localhost:3000/login",
       userLog
     );
 
+    console.log("response.data[0].profileID")
+    console.log(response.data[0].profileID)
+    const profID = { profileID: response.data[0].profileID };
+
+    const response2 = await Axios.post(
+      "http://localhost:5000/orders",
+      profID,
+    );
+    console.log("response2")
+    console.log(response2.data)
+    setOrderInfo(response2.data)
     setUserInfo(response.data[0])
     setUser(response.data[0].user_name)
 

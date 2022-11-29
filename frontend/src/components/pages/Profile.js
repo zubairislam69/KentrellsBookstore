@@ -9,11 +9,13 @@ import { useNavigate } from "react-router-dom";
 
 import { UserContext} from './UserContext'
 import { UserInfoContext } from './UserInfoContext'
+import { OrderInfoContext } from './OrderInfoContext'
 
 const Profile = () => {
   const [active, setActive] = useState("Main");
   const {user, setUser } = useContext(UserContext)
   const {userInfo, setUserInfo } = useContext(UserInfoContext)
+  const { orderInfo, setOrderInfo } = useContext(OrderInfoContext)
 
   const navigate = useNavigate()
 

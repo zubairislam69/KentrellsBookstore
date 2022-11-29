@@ -13,16 +13,16 @@ import Home from './components/pages/Home';
 import Logout from './components/pages/Logout';
 import { UserContext } from './components/pages/UserContext';
 import { UserInfoContext } from './components/pages/UserInfoContext';
+import { OrderInfoContext } from './components/pages/OrderInfoContext';
 import Search from './components/Search';
 import { CartContext } from './components/CartContext'
 function App() {
-  const [user, setUser] = useState("")
-  const [userInfo, setUserInfo] = useState("Hello")
+  const [user, setUser] = useState()
+  const [userInfo, setUserInfo] = useState()
   const [product, setProduct] = useState([])
+  const [orderInfo, setOrderInfo] = useState()
 
-
-  //in video, 27 min mark
-
+  
   const [CartItems, setCart] = useState([]);
   console.log("CartItems")
 
@@ -82,7 +82,9 @@ function App() {
           <Route path="/login" element={
             <UserContext.Provider value={{ user, setUser }}>
               <UserInfoContext.Provider value={{ userInfo, setUserInfo }}>
-                <Login/>
+                <OrderInfoContext.Provider value={{ orderInfo, setOrderInfo }}>
+                  <Login />
+                </OrderInfoContext.Provider>
               </UserInfoContext.Provider>
             </UserContext.Provider>
           }/>
@@ -101,7 +103,9 @@ function App() {
           <Route path="/profile" element={
             <UserContext.Provider value={{ user, setUser}}>
               <UserInfoContext.Provider value={{ userInfo, setUserInfo }}>
-                <Profile />       
+                <OrderInfoContext.Provider value={{ orderInfo, setOrderInfo }}>
+                  <Profile />       
+                </OrderInfoContext.Provider>
               </UserInfoContext.Provider>
             </UserContext.Provider>
           }/>
