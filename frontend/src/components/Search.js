@@ -3,18 +3,13 @@ import Axios from 'axios'
 import CardItem from './CardItem'
 
 const Search = () => {
-
   const [search, setSearch] = useState("")
-
   const [bookArr, setBookArr] = useState([])
-
   const [booksFound, setBooksFound] = useState([])
 
   useEffect(() => {
     Axios.post('http://localhost:5000/books').then((response) => {
-
       response.data.map((books) => {
-
         setBookArr((prevState) => [...prevState, {
           bookID: books.bookID,
           title: books.title,
@@ -26,13 +21,9 @@ const Search = () => {
           age_level: books.age_level
         }])
       })
-
-
     }).catch(error => {
       console.log(error.response)
     });
-
-    
   }, [])
 
   useEffect(() => {
@@ -43,23 +34,24 @@ const Search = () => {
       setBooksFound([])
     } else {
       setBooksFound(results2)
-
     }
   }, [search])
 
   return (
       <>
-          <form >
-        <label className='search--input' >Search Here: </label>
-        <input
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        /> 
+        <form >
+          <label className='search--input' >Search Here: </label>
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          /> 
 
 
               Filter By: 
               <input type= "checkbox" /> Author
               <input type="checkbox" /> Title
+              <input type="checkbox" /> Low Price
+              <input type="checkbox" /> High Price
 
 
         

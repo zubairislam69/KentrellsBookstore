@@ -1,28 +1,24 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from './Button';
 import './Navbar.css';
 import { UserContext } from './pages/UserContext';
 
 function Navbar() {
     const { user, setUser } = useContext(UserContext)
+    const [click, setClick] = useState(false);
+    const [button, setButton] = useState(true);
 
-    
     useEffect(() => {
         const loggedInUser = localStorage.getItem("user");
         console.log("loggedInUser")
-
         console.log(loggedInUser)
         if (loggedInUser) {
             const foundUser = JSON.parse(loggedInUser);
             setUser(foundUser[0].user_name)
         }
+        showButton()
     }, []);
-   
-
-    const [click, setClick] = useState(false);
-    const [button, setButton] = useState(true);
-
+    
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
 
@@ -35,48 +31,36 @@ function Navbar() {
         }
     };
 
-    useEffect(() => {
-        showButton();
-    }, []);
-
     window.addEventListener('resize', showButton);
-    return (
 
-        
+    return (  
         <>
-
             <nav className='navbar'>
                 <div className='navbar-container'>
                     <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-                            Kentrells Bookstore
-                            <i class='fab fa-typo3' />
+                        Kentrells Bookstore
+                        <i class='fab fa-typo3' />
                     </Link>
                     <div className="menu-icon" onClick={handleClick}>
                         <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
                     </div>
                     <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-
                         <li className='nav-item'>
                             <Link
                                 to='/search'
                                 className='nav-links'
                                 onClick={closeMobileMenu}>
-
                                 Search
                             </Link>
                         </li>
-
-
                         <li className='nav-item'>
                             <Link
                                 to='/'
                                 className='nav-links'
                                 onClick={closeMobileMenu}>
-
                                 Home
                             </Link>
                         </li>
-
                         <li className='nav-item'>
                             <Link
                                 to='/books'
@@ -84,10 +68,7 @@ function Navbar() {
                                 onClick={closeMobileMenu}>
                                 Books
                             </Link>
-                        </li>
-
-                       
-                        {/* if user doesnt exist, render login in navbar */}
+                        </li>           
                         {!user && <li>
                             <Link
                                 to='/login'
@@ -96,7 +77,6 @@ function Navbar() {
                                 Login
                             </Link>
                         </li>}
-
                         <li>
                             <Link
                                 to='/cart'
@@ -105,9 +85,7 @@ function Navbar() {
                                 Cart 
                             </Link>
                         </li>
-                        {/* {button && <Button buttonStyle='btn--outline'> Cart </Button>} */}
-
-                        
+                        {/* {button && <Button buttonStyle='btn--outline'> Cart </Button>} */}                  
                         {user && <li className='nav-item'>
                             <Link
                                 to='/profile'
@@ -116,7 +94,6 @@ function Navbar() {
                                 {user}
                             </Link>
                         </li> }
-
                     </ul>
                 </div>
             </nav>

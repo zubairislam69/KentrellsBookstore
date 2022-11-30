@@ -3,10 +3,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Axios from "axios";
-import CardItem from "../CardItem";
 import "./Books.css"
 import Modal from '../Modal';
-import { Link } from 'react-router-dom';
 
 function Arrow(props) {
   const { className, style, onClick } = props;
@@ -19,8 +17,9 @@ function Arrow(props) {
   );
 }
 
-
-const Books = (props) => {
+const Books = ({ handleAddProducts }) => {
+  const [bookArr, setBookArr] = useState([])
+  const [fantasyArr, setFantasyArr] = useState([])
 
   const settings = {
     dots: true,
@@ -32,23 +31,10 @@ const Books = (props) => {
     nextArrow: <Arrow />,
     prevArrow: <Arrow />
   };
-  const { id, text, label, author, price, src, age, isbn, date, handleAddProducts } = props;
-
-  const [bookArr, setBookArr] = useState([])
-  const [fantasyArr, setFantasyArr] = useState([])
-
-
-
-
-
-  console.log("bookArr")
-  console.log(bookArr)
 
   useEffect(() => {
     Axios.post('http://localhost:5000/books').then((response) => {
-
       response.data.map((books) => {
-
         setBookArr((prevState) => [...prevState, {
           bookID: books.bookID,
           title: books.title,
@@ -59,19 +45,14 @@ const Books = (props) => {
           publisherID: books.publisherID,
           age_level: books.age_level,
           src: books.src
-
         }])
       })
-
-
     }).catch(error => {
       console.log(error.response)
     });
 
     Axios.post('http://localhost:5000/fantasy').then((response) => {
-
       response.data.map((books) => {
-
         setFantasyArr((prevState) => [...prevState, {
           bookID: books.bookID,
           title: books.title,
@@ -84,13 +65,9 @@ const Books = (props) => {
           src: books.src
         }])
       })
-
-
     }).catch(error => {
       console.log(error.response)
     });
-    
-
   }, [])
 
   console.log("fantasyArr")
@@ -98,16 +75,13 @@ const Books = (props) => {
   return (
     <div className="App">
       <h2> All Books </h2>
-      <Slider {...settings}>
-        {bookArr.map((item) => (
-          <div style={{ width:300 }} className="card" >
-            <div className="card-top">
-              <img 
-                  src={item.src}
-              />
-              <h1> {item.title} </h1>
-
-            </div>
+        <Slider {...settings}>
+          {bookArr.map((item) => (
+            <div style={{ width:300 }} className="card" >
+              <div className="card-top">
+                <img src={item.src} />
+                <h1> {item.title} </h1>
+              </div>
             <div className="card-bottom">
               <h3> {item.price}</h3>
               <p className="category"> {item.genre} </p>
@@ -122,38 +96,29 @@ const Books = (props) => {
               age={item.age_level}
               isbn={item.isbn}
               bookID = {item.bookID}
-
             />
-
-            <button className="card-button"
+            <button
+              className="card-button"
               onClick={() => handleAddProducts(item)} >
-              {/* // onClick={() => setProduct((prevState) =>
-                            //     [...prevState, { title: item.title, price: item.price, id: item.bookID }])} >*/ }
-
-
-              Add To Cart
+                Add To Cart
             </button>
           </div>
-
-        ))}
-  
+        ))} 
       </Slider>
       
       <br /> <br />
+
       <h2> Fantasy </h2>
 
       <Slider {...settings}>
-      {fantasyArr.map((item) => (
-        <div style={{ width:300 }} className="card" >
-          <div className="card-top">
-            <img 
-            src={item.src}
-            />
-            <h1> {item.title} </h1>
-
+        {fantasyArr.map((item) => (
+          <div style={{ width:300 }} className="card" >
+            <div className="card-top">
+              <img src={item.src} />
+              <h1> {item.title} </h1>
           </div>
           <div className="card-bottom">
-            <h3> {item.price}</h3>
+            <h3> {item.price} </h3>
             <p className="category"> {item.genre} </p>
           </div>
           <Modal
@@ -166,20 +131,13 @@ const Books = (props) => {
             age={item.age_level}
             isbn={item.isbn}
             bookID={item.bookID}
-
           />
-
           <button className="card-button"
             onClick={() => handleAddProducts(item)} >
-            {/* // onClick={() => setProduct((prevState) =>
-                            //     [...prevState, { title: item.title, price: item.price, id: item.bookID }])} >*/ }
-
-
-            Add To Cart
+              Add To Cart
           </button>
         </div>
-
-      ))}
+        ))}
       </Slider>
     </div>
   );

@@ -2,9 +2,7 @@ import React, { useState, useContext } from 'react'
 import { useNavigate } from "react-router-dom";
 import { UserContext } from './UserContext'
 
-//{ setUsername, setPassword, setUser }
 const Logout = () => {
-    
     const navigate = useNavigate()
     const { user, setUser } = useContext(UserContext)
 
@@ -12,12 +10,10 @@ const Logout = () => {
         setUser("")
         localStorage.clear();
         navigate("/")
-    };
+    }
 
   return (
-      <>
-          <button onClick={handleLogout}>logout</button>
-      </>
+        <button onClick={handleLogout}>logout</button>  
   )
 }
 

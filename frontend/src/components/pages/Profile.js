@@ -4,33 +4,31 @@ import pfp from "../images/anonPFP.png"
 import Main from "./profilePages/Main"
 import Orders from "./profilePages/Orders"
 import Account from "./profilePages/Account"
+import Axios from 'axios'
 
 import { useNavigate } from "react-router-dom";
 
 import { UserContext} from './UserContext'
 import { UserInfoContext } from './UserInfoContext'
-import { OrderInfoContext } from './OrderInfoContext'
 
 const Profile = () => {
   const [active, setActive] = useState("Main");
   const {user, setUser } = useContext(UserContext)
-  const {userInfo, setUserInfo } = useContext(UserInfoContext)
-  const { orderInfo, setOrderInfo } = useContext(OrderInfoContext)
+  const { userInfo, setUserInfo } = useContext(UserInfoContext)
+  const [profileID, setProfileID] = useState()
 
   const navigate = useNavigate()
 
-  console.log("userInfo")
+  const [orders, setOrders] = useState()
 
-  console.log(userInfo)
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
-
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
       setUser(foundUser[0].user_name)
+      setProfileID(foundUser[0].profileID)
     }
-
   }, []);
  
   const handleLogout = () => {
@@ -39,14 +37,26 @@ const Profile = () => {
     navigate("/")
   };
 
-  return (
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const orderProfileID = { profileID: profileID };
 
+    const response2 = await Axios.post(
+      "http://localhost:5000/orders",
+      orderProfileID,
+    );
+
+    setOrders(response2.data)
+    setActive("Orders")
+  }
+
+  return (
       <div className='profile-container'>
         <div className='sidebar-container'>
           <div className='profile'>
             <div>
               <img className='pfp' src={pfp} alt="/pfp" />
-              </div>          
+            </div>          
             <div>
               <p>{user}</p>
             </div>
@@ -55,18 +65,15 @@ const Profile = () => {
 
         <div className='button-container'>
           <button className='btn' onClick={() => setActive("Main")}>Summary</button >
-          <button className='btn' onClick={() => setActive("Orders")}>Orders</button >
-            <button className='btn' onClick={() => setActive("Account")}>Account</button>
-            <button className='btn' onClick={handleLogout}>Logout</button>
-
+        <button className='btn' onClick={handleSubmit}>Orders</button >
+          <button className='btn' onClick={() => setActive("Account")}>Account</button>
+          <button className='btn' onClick={handleLogout}>Logout</button>
         </div>
-
         <div className='right-container'>
           {active === "Main" && <Main />}
-          {active === "Orders" && <Orders />}
+          {active === "Orders" && <Orders orderInfo={orders} />}
           {active === "Account" && <Account />}
         </div>     
-
       </div > 
   )
 }

@@ -13,10 +13,6 @@ const Signup = () => {
   const [birthPlace, setBirthPlace] = useState("")
   const [shippingAddress, setShippingAddress] = useState("")
 
-  const [profile, setProfile] = useState({ username: '', email: '', password: '', age: 0, birthPlace: '', shippingAddress: '' })
-  const [returnedData, setReturnedData] = useState([{}])
-
-
   const register = () => {
     Axios.post('http://localhost:3000/signup', {
       username: username,
@@ -25,7 +21,6 @@ const Signup = () => {
       age: age,
       birthPlace: birthPlace,
       shippingAddress: shippingAddress,
-
     }).then((response) => {
     console.log(response)
     })
@@ -33,46 +28,9 @@ const Signup = () => {
     navigate("/login")
   }
 
-  // const getAllProfile = async () => {
-  //   const newData = await fetch('/signup', {
-  //     method: 'POST',
-  //     headers: {
-  //       'content-type': 'application/json',
-  //       'Accept': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       ...profile
-  //     })
-  //   })
-  //     .then(res => res.json())
-  //   console.log(newData)
-  //   setReturnedData(newData)
-  // }
-  // console.log("returnedData")
-
-  // console.log(returnedData)
-
-  const createProfile = async () => {
-    const newData = await fetch('/signup', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        ...profile
-      })
-    })
-      .then(res => res.json())
-    console.log(newData)
-    setReturnedData(newData[0])
-  }
-
   return (
     <div className='signup-container'>
       <div className='signup-form-container'>
-
-    
         <form className='signup-form'>
 
           <label className='signup-label' htmlFor='name'>Username:</label>
@@ -144,7 +102,6 @@ const Signup = () => {
         <button className='signup-btn' onClick={register}> Register </button>
         </form>
         <button className='link-btn' onClick={() => navigate("/login")}> Already Have an Account? Login Here.</button>
-        {/* {listItems} */}
       </div>
     </div>
   )
