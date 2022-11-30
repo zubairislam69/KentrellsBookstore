@@ -14,9 +14,10 @@ const Search = () => {
   const [titleSearch, setTitleSearch] = useState(false);
   const [lowPriceSearch, setLowPriceSearch] = useState(false);
   const [topPriceSearch, setTopPriceSearch] = useState(false);
-
-  const [selected, setSelected] = useState('yes');
+  
   const [diffSearch, setDiffSearch] = useState(false);
+  const [filter, setFilter] = useState('');
+
 
   useEffect(() => {
     Axios.post('http://localhost:5000/books').then((response) => {
@@ -46,24 +47,8 @@ const Search = () => {
 
     
   }, [])
-  if (diffSearch) {
-
-    console.log("CLCSOOCS")
-  }
+ 
   useEffect(() => {
-    // let results2 = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
-
-    // console.log("results2");
-    // console.log(results2);
-
-    // if (!search) {
-    //   setBooksFound([])
-    // } else {
-    //   setBooksFound(results2)
-    // }
-
-    // WORKING CODE ABOVE
-
 
     let authorResults = bookArr.filter(x => x.author_name.toLowerCase().includes(search.toLowerCase()));
     let titleResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
@@ -71,70 +56,112 @@ const Search = () => {
     let topPriceResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
 
 
-    if (diffSearch) {
+    if (filter === "author") {
 
-      console.log("CLCSOOCS")
+     if (!search) {
+        setBooksFound([])
+      } else {
+        setBooksFound(authorResults)
+      }
     }
-      // if (!search) {
-      //   setBooksFound([])
-      // } else {
-      //   setBooksFound(authorResults)
-      // }
-    
 
-    
+    else if (filter === "title") {
 
-     
-    
+      if (!search) {
+        setBooksFound([])
+      } else {
+        setBooksFound(titleResults)
+      }
+    }
 
-    
   }, [search])
 
 
-  const handleChange = event => {
+
+  console.log("filter")
+  console.log(filter)
+
+  const handleChange = (event) => {
+    setFilter(event.target.value)
+
+    console.log("event.target.value")
+    console.log(event.target.checked)
+
     if (event.target.checked) {
       setDiffSearch(true)
-      setSelected(event.target.value);
-      
     } else {
       setDiffSearch(false)
 
     }
-    setDiffSearch(current => !current);
-  };
 
-  console.log(diffSearch)
+    //   if (event.target.checked) {
+    //     setDiffSearch(true)
+
+    //   } else {
+    //     setDiffSearch(false)
+
+    //   }
+    //   setDiffSearch(current => !current);
+    // };
+
+ 
+  }
+
   console.log("diffSearch")
-  
+  console.log(diffSearch)
   
   return (
-      <>
-      <form >
-        
+    <>
 
-        Filter By: {" "}
-        <input
-          value="yes"
-          checked={selected === 'yes'}
-          type="radio"
-          name="search"
-          onChange={handleChange}
-        /> Author { }
-        <input type="radio" name="search" value={titleSearch} /> Title {}
-        <input type="radio" name="search" value={lowPriceSearch} /> Low Price {}
-        <input type="radio" name="search" value={topPriceSearch} /> Top Price {}
+      <form>
+        <p> Filter By: </p>
+        <div>
+          <input
+            name="search"
 
+            type="radio"
+            value="author"
+            checked={filter === 'author'}
+            onChange={handleChange}
+          /> Author {}
+          <input
+            name="search"
+
+            type="radio"
+            value="title"
+            checked={filter === 'title'}
+            onChange={handleChange}
+          /> Title {}
+          <input
+            name="search"
+
+            type="radio"
+            value="lowPrice"
+            checked={filter === 'lowPrice'}
+            onChange={handleChange}
+          /> Low Price {}
+
+          <input
+            name="search"
+
+            type="radio"
+            value="topPrice"
+            checked={filter === 'topPrice'}
+            onChange={handleChange}
+          /> Top Price {}
+        </div>
+      </form>
+
+      <label className='search--input' >Search Here: </label>
+      <input
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      /> 
         <br />
         <br /> 
 
-          <label className='search--input' >Search Here: </label>
-          <input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          /> 
+          
 
-
-      </form>
       
       {/* <div className="card" >
         <div className="card-top">
