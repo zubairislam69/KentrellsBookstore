@@ -174,7 +174,7 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
         <div className="div cart-items-total-price">
         Total Price: ${parseFloat(totalPrice).toFixed(2)}
         </div>
-        <button disabled={buttonState} className="submit-btn" onClick={handleSubmit}> Checkout </button>
+        <button disabled={buttonState} className="submit-btn" onSubmit={handleSubmit}> Checkout </button>
           </form>
       </div>
     </div>
