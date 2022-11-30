@@ -78,15 +78,28 @@ app.post("/signup", (req, res) => {
     const age = req.body.age
     const birthPlace = req.body.birthPlace
     const shippingAddress = req.body.shippingAddress
-
-    db.query(
-        "INSERT INTO Profile VALUES (?, ?, ?, ?, ?, ?, ?)", [profileID, username, email, password, age,
-    birthPlace, shippingAddress], (err, result) => {
+    db.query("Select email from profile where email= ? or user_name= ?", [email, username],
+    (err, result) => {
         if (err) {
             console.log(err)
         }
+        if (result.length > 0) {
+            res.send({message: "Email Or Username is already used"})
+        } else {
+            res.send(result)
+            db.query(
+                "INSERT INTO Profile VALUES (?, ?, ?, ?, ?, ?, ?)", [profileID, username, email, password, age,
+            birthPlace, shippingAddress], (err, result) => {
+                if (err) {
+                    console.log(err)
+                }
+                console.log(result)
+            })
+            
+        }
         console.log(result)
     })
+
 
 })
 

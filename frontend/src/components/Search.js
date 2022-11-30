@@ -65,6 +65,24 @@ const Search = () => {
       }
     }
 
+    else if (filter === "lowPrice") {
+
+      if (!search) {
+        setBooksFound([])
+      } else {
+        setBooksFound(lowPriceResults)
+      }
+    }
+
+    else if (filter === "topPrice") {
+
+      if (!search) {
+        setBooksFound([])
+      } else {
+        setBooksFound(topPriceResults)
+      }
+    }
+
     else if (filter === "title") {
 
       if (!search) {

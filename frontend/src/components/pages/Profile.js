@@ -44,10 +44,13 @@ const Profile = () => {
     const response2 = await Axios.post(
       "http://localhost:5000/orders",
       orderProfileID,
-    );
+    ).then((response2) => {
+      setOrders(response2.data)
+      setActive("Orders")
+    });
 
-    setOrders(response2.data)
-    setActive("Orders")
+    // setOrders(response2.data)
+    // setActive("Orders")
   }
 
   return (
@@ -71,7 +74,7 @@ const Profile = () => {
         </div>
         <div className='right-container'>
           {active === "Main" && <Main />}
-          {active === "Orders" && <Orders orderInfo={orders} />}
+          {active === "Orders" && <Orders orders={orders} />}
           {active === "Account" && <Account />}
         </div>     
       </div > 

@@ -55,6 +55,11 @@
     text-decoration: underline;
 }
 
+.signup-btn:disabled, .signup-btn:disabled:hover {
+    background-color: grey;
+    color: #444444;
+}
+
 .signup-btn:hover{
     background-color: black;
     color:white;
