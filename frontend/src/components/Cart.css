@@ -1,0 +1,161 @@
+.cart-item-img{
+    border-radius: 3px;
+    width: 100px;
+    height: 150px;
+    margin-left: 5%;
+    margin-top: 5%;
+    padding: 0;
+}
+.cart-items{
+    display: flex;
+    margin: 10%;
+}
+.cart-items-list{
+    float: inline-block;
+    text-align: center; 
+    vertical-align: middle;
+    border: 1px solid black;
+}
+.cart-items-name {
+    border-radius: 3px;
+    width: 30%;
+    font-size: 0.9rem;
+}
+
+.cart-items-function {
+    border-radius: 3px;
+    width: 30%;
+}
+
+.cart-items-add{
+    height: 5%;
+    width: 15%;
+    background-color: green;
+    color: white;
+
+
+}
+
+.cart-items-remove{
+    height: 5%;
+    width: 15%;
+    background-color: red;
+    color: white;
+
+}
+
+.cart-items-price{
+    font-size: 0.7rem;
+    padding-right: 5px;
+    text-align: center; 
+    vertical-align: middle;
+    
+}
+
+
+.cart-items-list{
+
+    border: 1px solid black;
+
+}
+
+.checkout-header{
+    text-align: left;
+    font-size: 0.9rem;
+    padding: 10px;
+    margin-left: 4%;
+    
+
+}
+
+#name, #cardnumber,#expiredate,#CVV{
+    color: black;
+    border: 1px solid black;
+    margin-bottom: 10px;
+
+    border-radius: 3px;
+
+}
+
+#name::placeholder, #cardnumber::placeholder,#expiredate::placeholder,#CVV::placeholder{
+    color: black;
+    font-size: 0.7rem;
+    
+
+    
+}
+
+.information-seperator{
+    border-top: 2px solid grey;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 3%;
+
+    width: 90%;
+}
+
+.submit-btn{
+    color: white;
+    margin: 10px;
+    background-color: black;
+    padding: 5px;
+    width: 90%;
+}
+
+.submit-btn:hover{
+    background-color: grey;
+    transition: all 0.3s ease-out;
+    border: 1px solid white;
+}
+
+.submit-btn:disabled{
+    background-color: grey;
+    border: 1px solid white;
+}
+
+
+
+
+#name::input{
+    padding: 10px;
+}
+
+input#name, input#cardnumber{
+    padding: 5px;
+    width: 90%;
+}
+
+input#expiredate{
+    padding: 5px;
+    width: 42.5%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+input#CVV{
+    padding: 5px;
+    width: 42.5%;
+    margin-right: 5%;
+}
+
+
+.cart{
+    border: 1px solid black;
+    border-radius: 1px;
+    display: inline-block;
+    width: 70%;
+
+}
+
+.checkout{
+    color: black;
+    background-color: lightgrey;
+    font-family:'Nexa';
+    border: 1px solid rgb(45, 45, 45);
+    border-radius: 3px;
+    display: inline-block;
+    width: 30%;
+
+
+
+}
