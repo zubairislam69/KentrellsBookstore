@@ -5,6 +5,55 @@
     color: #000000;
 }
 
+.banner{
+    border-radius: 0;
+    width: 50%;
+    max-height: 100%;
+    margin: 0;
+    height: auto;
+}
+.banner-content{
+    display: flex;
+}
+.banner-information{
+display: inline-block;  
+}
+
+.slogan{
+    margin-top: 30%;
+    font-size: 2rem;
+}
+
+.holiday-btn{
+
+    color: black;
+    background-color: white;
+    font-size: 1rem;
+
+    border-radius: 7px;
+    padding: 5%;
+    margin-top: 10%;
+    padding-left: 10%;
+    padding-right: 10%;
+
+
+}
+
+.holiday-btn:hover{
+
+    color: white;
+    background-color: black;
+    border-radius: 7px;
+    border: solid white;
+    padding: 5%;
+    margin-top: 10%;
+    padding-left: 10%;
+    padding-right: 10%;
+    transition: all 0.3s ease-out;
+
+
+
+}
 h1{
    margin-top: 0; 
 }

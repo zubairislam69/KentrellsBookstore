@@ -10,6 +10,7 @@ import Login from './components/pages/Login';
 import Signup from './components/pages/Signup';
 import Profile from './components/pages/Profile';
 import Home from './components/pages/Home';
+import Holiday from './components/pages/Holiday';
 import Logout from './components/pages/Logout';
 import { UserContext } from './components/pages/UserContext';
 import { UserInfoContext } from './components/pages/UserInfoContext';
@@ -54,7 +55,13 @@ function App() {
 
         <Routes >
           <Route path="/search" element={<Search />} />
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home 
+          CartItems={CartItems}
+          handleAddProducts={handleAddProducts}
+          handleRemoveProducts={handleRemoveProducts}
+          
+          />}
+             />
           <Route path="/books"
             element={
               <Books
@@ -72,6 +79,15 @@ function App() {
                     handleRemoveProducts={handleRemoveProducts} />
                 </UserInfoContext.Provider>
             } />
+
+          <Route path="/holiday"
+            element={
+              <Holiday
+                CartItems={CartItems}
+                handleAddProducts={handleAddProducts}
+                handleRemoveProducts={handleRemoveProducts}
+              />} />
+            
           
           <Route path="/login" element={
             <UserContext.Provider value={{ user, setUser }}>

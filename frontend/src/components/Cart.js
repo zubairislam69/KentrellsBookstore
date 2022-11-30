@@ -20,6 +20,14 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
   
   const navigate = useNavigate()
 
+  
+
+  const [cardName, setCardName] = useState('');
+  const [cardNum, setCardNum] = useState('');
+  const [cardExp, setCardExp] = useState('');
+  const [cardCVV, setCardCVV] = useState('');
+  const [buttonState, setButtonState] = useState(true);
+
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
 
@@ -31,34 +39,49 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
       setLoginStatus("Please log in")
     }
 
-    //user must be logged in
-    //submit the info to the sql.
-    //
-   
 
   }, []);
 
   useEffect(() => {
-    if (cardNum.length == 16 && cardName.length > 0 && cardExp.length == 6, cardCVV.length == 3) {
+
+    if(cardNum.length==16 && cardName.length>0 && cardExp.length==6, cardCVV.length==3){
       setButtonState(false);
     }
-  }, [cardNum, cardName, cardCVV, cardExp]);
 
+
+  }, [cardNum, cardName, cardCVV, ], [cardName], [cardCVV], [cardExp]);
+  console.log(cardNum.length);
+
+
+  
+
+
+
+  // console.log("profID")
+  // // console.log(userInfo.profileID)
+
+  // console.log("CartItems IN CART")
+
+  // console.log(CartItems)
+
+ 
+  // console.log("book IDS")
+  
   const ordersBookID = CartItems.map((item) => {
     return item.bookID
   })
+
+  // console.log(ordersBookID)
 
   const totalPrice = CartItems.reduce((price, item) =>
     price + item.quantity * item.price, 0
   )
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    const orderInfo = {
-      profileID: profileID, price: parseFloat(totalPrice).toFixed(2), ordersBookID: ordersBookID,
-      cardName: cardName, cardNum: cardNum, cardExp: cardExp, cardCVV: cardCVV
-    };
-   
+  // console.log(parseFloat(totalPrice).toFixed(2))
+
+  const handleSubmit = async () => {
+    const orderInfo = { profileID: profileID, price: parseFloat(totalPrice).toFixed(2), ordersBookID: ordersBookID };
+
     const response = await Axios.post(
       "http://localhost:5000/checkout",
       orderInfo
@@ -72,7 +95,8 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
   
   return (
     <>
-    {loginStatus}
+
+
     {CartItems.length === 0 && (
         <div className='cart-items-empty'>
             No Items Are Added

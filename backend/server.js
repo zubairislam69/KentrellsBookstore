@@ -148,6 +148,26 @@ app.post("/checkout", (req, res) => {
     
 
 })
+app.post("/home", (req, res) => {
+    
+    db.query(
+        "SELECT * FROM  Book_discount AS d, book AS s  WHERE  d.bookID=s.bookID",  (err, result) => {
+            if (err) {
+                console.log(err)
+            }
+            res.send(result)
+        })
+})
+
+app.post("/holiday", (req, res) => {
+    db.query(
+        "SELECT * FROM holiday_book AS h, book AS B WHERE h.bookID=b.bookID and holidayID=1",  (err, result) => {
+            if (err) {
+                console.log(err)
+            }
+            res.send(result)
+        })
+})
 
 app.post("/login", (req, res) => {
     const username = req.body.username

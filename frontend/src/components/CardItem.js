@@ -11,8 +11,11 @@ function CardItem(props) {
             <li className='cards__item'>                
                 <Link className='cards__item__link'>
                     <div className='cards__item__info'>
+                        <img className='cards__item__img'
+                        src={src}
+                        />
                         <h5 className='cards__item__text'>{title}</h5>
-                        <h6 className='cards__item__text'>{id}</h6>
+                        <h6 className='cards__item__text'>{price}</h6>
                         <Modal
                             handleAddProducts = {handleAddProducts}
                             src={src}
