@@ -43,7 +43,7 @@ const Login = () => {
       <div className='login-container'>
         <div className='login-form-container'>
           {loginStatus && loginStatus}
-            <form className='login-form' onSubmit={handleSubmit}>
+            <form className='login-form' >
               <label className='login-label' htmlFor='username'>Username:</label>
               <input
                 className='login-input'

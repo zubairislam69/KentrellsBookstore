@@ -9,6 +9,13 @@ import Axios from 'axios'
 
 const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
   
+  const [cardName, setCardName] = useState('');
+  const [cardNum, setCardNum] = useState('');
+  const [cardExp, setCardExp] = useState('');
+  const [cardCVV, setCardCVV] = useState('');
+  const [buttonState, setButtonState] = useState(true);
+  const [loginStatus, setLoginStatus] = useState("")
+
   const [profileID, setProfileID] = useState()
   
   const navigate = useNavigate()
@@ -19,69 +26,53 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
       setProfileID(foundUser[0].profileID)
+      setLoginStatus("")
+    } else {
+      setLoginStatus("Please log in")
     }
 
-    if(cardNum.length==16){
-      setButtonState(false);
-      
-     }
-
-     console.log("cardnum")
-     console.log(cardNum)
+    //user must be logged in
+    //submit the info to the sql.
+    //
+   
 
   }, []);
 
+  useEffect(() => {
+    if (cardNum.length == 16 && cardName.length > 0 && cardExp.length == 6, cardCVV.length == 3) {
+      setButtonState(false);
+    }
+  }, [cardNum, cardName, cardCVV, cardExp]);
 
-
-  const [cardName, setCardName] = useState('');
-  const [cardNum, setCardNum] = useState('');
-  const [cardExp, setCardExp] = useState('');
-  const [cardCVV, setCardCVV] = useState('');
-  const [buttonState, setButtonState] = useState(true);
-  
-
-
-
-  console.log("profID")
-  // console.log(userInfo.profileID)
-
-  console.log("CartItems IN CART")
-
-  console.log(CartItems)
-
- 
-  console.log("book IDS")
-  
   const ordersBookID = CartItems.map((item) => {
     return item.bookID
   })
-
-  console.log(ordersBookID)
 
   const totalPrice = CartItems.reduce((price, item) =>
     price + item.quantity * item.price, 0
   )
 
-  console.log(parseFloat(totalPrice).toFixed(2))
-
-  const handleSubmit = async () => {
-    const orderInfo = { profileID: profileID, price: parseFloat(totalPrice).toFixed(2), ordersBookID: ordersBookID };
-
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const orderInfo = {
+      profileID: profileID, price: parseFloat(totalPrice).toFixed(2), ordersBookID: ordersBookID,
+      cardName: cardName, cardNum: cardNum, cardExp: cardExp, cardCVV: cardCVV
+    };
+   
     const response = await Axios.post(
       "http://localhost:5000/checkout",
       orderInfo
     );
 
+
     
-      navigate("/")
+    navigate("/")
   }
   
   
-
-  
   return (
     <>
-
+    {loginStatus}
     {CartItems.length === 0 && (
         <div className='cart-items-empty'>
             No Items Are Added
@@ -118,7 +109,8 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
     
       
       <br/>
-      <div className= "checkout">
+        <div className="checkout">
+          <form>
         <h2 className='checkout-header'>Payment Information</h2>
         
         <div className='card-information'>
@@ -173,7 +165,8 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
         <div className="div cart-items-total-price">
         Total Price: ${parseFloat(totalPrice).toFixed(2)}
         </div>
-        <button disabled={buttonState} className="submit-btn" onClick = {handleSubmit}> Checkout </button>
+            <button disabled={buttonState} className="submit-btn" onClick={handleSubmit}> Checkout </button>
+          </form>
       </div>
     </div>
 
