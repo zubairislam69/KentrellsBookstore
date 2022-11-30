@@ -13,6 +13,14 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
   
   const navigate = useNavigate()
 
+  
+
+  const [cardName, setCardName] = useState('');
+  const [cardNum, setCardNum] = useState('');
+  const [cardExp, setCardExp] = useState('');
+  const [cardCVV, setCardCVV] = useState('');
+  const [buttonState, setButtonState] = useState(true);
+
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
 
@@ -21,48 +29,45 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
       setProfileID(foundUser[0].profileID)
     }
 
-    if(cardNum.length==16){
-      setButtonState(false);
-      
-     }
-
-     console.log("cardnum")
-     console.log(cardNum)
 
   }, []);
 
+  useEffect(() => {
+
+    if(cardNum.length==16 && cardName.length>0 && cardExp.length==6, cardCVV.length==3){
+      setButtonState(false);
+    }
 
 
-  const [cardName, setCardName] = useState('');
-  const [cardNum, setCardNum] = useState('');
-  const [cardExp, setCardExp] = useState('');
-  const [cardCVV, setCardCVV] = useState('');
-  const [buttonState, setButtonState] = useState(true);
+  }, [cardNum, cardName, cardCVV, ], [cardName], [cardCVV], [cardExp]);
+  console.log(cardNum.length);
+
+
   
 
 
 
-  console.log("profID")
-  // console.log(userInfo.profileID)
+  // console.log("profID")
+  // // console.log(userInfo.profileID)
 
-  console.log("CartItems IN CART")
+  // console.log("CartItems IN CART")
 
-  console.log(CartItems)
+  // console.log(CartItems)
 
  
-  console.log("book IDS")
+  // console.log("book IDS")
   
   const ordersBookID = CartItems.map((item) => {
     return item.bookID
   })
 
-  console.log(ordersBookID)
+  // console.log(ordersBookID)
 
   const totalPrice = CartItems.reduce((price, item) =>
     price + item.quantity * item.price, 0
   )
 
-  console.log(parseFloat(totalPrice).toFixed(2))
+  // console.log(parseFloat(totalPrice).toFixed(2))
 
   const handleSubmit = async () => {
     const orderInfo = { profileID: profileID, price: parseFloat(totalPrice).toFixed(2), ordersBookID: ordersBookID };
@@ -81,6 +86,7 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
   
   return (
     <>
+
 
     {CartItems.length === 0 && (
         <div className='cart-items-empty'>

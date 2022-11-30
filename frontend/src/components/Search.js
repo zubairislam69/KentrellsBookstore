@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import Axios from 'axios'
 import CardItem from './CardItem'
+import './Cards.css'
+import './search.css'
+
 
 const Search = () => {
   const [search, setSearch] = useState("")
@@ -18,7 +21,8 @@ const Search = () => {
           isbn: books.isbn,
           publication_date: books.publication_date,
           publisherID: books.publisherID,
-          age_level: books.age_level
+          age_level: books.age_level,
+          src: books.src
         }])
       })
     }).catch(error => {
@@ -63,6 +67,7 @@ const Search = () => {
           <h1> {item.title} </h1>
         </div>
       </div> */}
+      <div className='search-container'>
       {booksFound.map((item) => (
         <CardItem
           title={item.title}
@@ -72,9 +77,13 @@ const Search = () => {
           genre={item.genre}
           publicationDate={item.publication_date}
           isbn={item.isbn}
+          src={item.src}
           
         />
       ))}
+      
+      </div>
+
       
       </>
   )
