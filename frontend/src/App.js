@@ -101,6 +101,7 @@ function App() {
               <UserInfoContext.Provider value={{ userInfo, setUserInfo }}>
                 <Cart
                   CartItems={CartItems}
+                  setCart={setCart}
                   handleAddProducts={handleAddProducts}
                   handleRemoveProducts={handleRemoveProducts} />
               </UserInfoContext.Provider>

@@ -7,7 +7,7 @@ import Axios from 'axios'
 
 
 
-const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
+const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts, setCart }) => {
   
   const [cardName, setCardName] = useState('');
   const [cardNum, setCardNum] = useState('');
@@ -59,6 +59,7 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    window.location.reload();
     const orderInfo = {
       profileID: profileID, price: parseFloat(totalPrice).toFixed(2),
       ordersBookID: ordersBookID, cardNum: cardNum, cardName: cardName, cardCVV: cardCVV, cardExp: cardExp
@@ -68,11 +69,14 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
     const response = await Axios.post(
       "http://localhost:5000/checkout",
       orderInfo
-    );
+    ).then(()=>{
+      this.forceUpdate();
+    })
+
+
 
 
     
-    navigate('/')
   }
   
   
@@ -174,7 +178,7 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
         <div className="div cart-items-total-price">
         Total Price: ${parseFloat(totalPrice).toFixed(2)}
         </div>
-        <button disabled={buttonState} className="submit-btn" onSubmit={handleSubmit}> Checkout </button>
+        <button disabled={buttonState} className="submit-btn" onClick={handleSubmit}> Checkout </button>
           </form>
       </div>
     </div>
