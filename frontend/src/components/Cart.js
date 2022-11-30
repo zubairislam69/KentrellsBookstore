@@ -22,12 +22,6 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
 
   
 
-  const [cardName, setCardName] = useState('');
-  const [cardNum, setCardNum] = useState('');
-  const [cardExp, setCardExp] = useState('');
-  const [cardCVV, setCardCVV] = useState('');
-  const [buttonState, setButtonState] = useState(true);
-
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
 
