@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react'
 import { UserInfoContext } from './pages/UserInfoContext';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Cart.css"
 
 import Axios from 'axios'
@@ -37,8 +37,9 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
   }, []);
 
   useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
 
-    if(cardNum.length==16 && cardName.length>0 && cardExp.length==6, cardCVV.length==3){
+    if(cardNum.length==16 && cardName.length>0 && cardExp.length==6, cardCVV.length==3 && loggedInUser && CartItems.length>0){
       setButtonState(false);
     }
 
@@ -71,12 +72,14 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
 
 
     
-    navigate("/")
+    navigate('/')
   }
   
   
   return (
     <>
+
+    <p>{loginStatus}</p>
 
 
     {CartItems.length === 0 && (
@@ -171,7 +174,7 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
         <div className="div cart-items-total-price">
         Total Price: ${parseFloat(totalPrice).toFixed(2)}
         </div>
-            <button disabled={buttonState} className="submit-btn" onClick={handleSubmit}> Checkout </button>
+        <button disabled={buttonState} className="submit-btn" onClick={handleSubmit}> Checkout </button>
           </form>
       </div>
     </div>
