@@ -43,38 +43,26 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts }) => {
     }
 
 
-  }, [cardNum, cardName, cardCVV, ], [cardName], [cardCVV], [cardExp]);
-  console.log(cardNum.length);
+  }, [cardNum, cardName, cardCVV, cardExp]);
 
 
-  
-
-
-
-  // console.log("profID")
-  // // console.log(userInfo.profileID)
-
-  // console.log("CartItems IN CART")
-
-  // console.log(CartItems)
-
- 
-  // console.log("book IDS")
-  
   const ordersBookID = CartItems.map((item) => {
     return item.bookID
   })
 
-  // console.log(ordersBookID)
 
   const totalPrice = CartItems.reduce((price, item) =>
     price + item.quantity * item.price, 0
   )
 
-  // console.log(parseFloat(totalPrice).toFixed(2))
 
-  const handleSubmit = async () => {
-    const orderInfo = { profileID: profileID, price: parseFloat(totalPrice).toFixed(2), ordersBookID: ordersBookID };
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const orderInfo = {
+      profileID: profileID, price: parseFloat(totalPrice).toFixed(2),
+      ordersBookID: ordersBookID, cardNum: cardNum, cardName: cardName, cardCVV: cardCVV, cardExp: cardExp
+
+    };
 
     const response = await Axios.post(
       "http://localhost:5000/checkout",

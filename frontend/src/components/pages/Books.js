@@ -44,7 +44,7 @@ const Books = ({ handleAddProducts }) => {
           publication_date: books.publication_date,
           publisherID: books.publisherID,
           age_level: books.age_level,
-          src: books.src
+          src: books.src,
         }])
       })
     }).catch(error => {

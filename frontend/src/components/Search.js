@@ -14,10 +14,9 @@ const Search = () => {
   const [titleSearch, setTitleSearch] = useState(false);
   const [lowPriceSearch, setLowPriceSearch] = useState(false);
   const [topPriceSearch, setTopPriceSearch] = useState(false);
-  const [checkState1, setCheckState1] = useState(false)
-  const [checkState2, setCheckState2] = useState(false)
-  const [checkState3, setCheckState3] = useState(false)
-  const [checkState4, setCheckState4] = useState(false)
+
+  const [selected, setSelected] = useState('yes');
+  const [diffSearch, setDiffSearch] = useState(false);
 
   useEffect(() => {
     Axios.post('http://localhost:5000/books').then((response) => {
@@ -31,154 +30,110 @@ const Search = () => {
           publication_date: books.publication_date,
           publisherID: books.publisherID,
           age_level: books.age_level,
-          src: books.src
+          src: books.src,
+          author_name: books.author_name
         }])
       })
     }).catch(error => {
       console.log(error.response)
     });
-  }, [])
 
+    let authorResults = bookArr.filter(x => x.author_name.toLowerCase().includes(search.toLowerCase()));
+    let titleResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
+    let lowPriceResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
+    let topPriceResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
+
+
+    
+  }, [])
+  if (diffSearch) {
+
+    console.log("CLCSOOCS")
+  }
   useEffect(() => {
-    let results2 = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
-    console.log("results2");
-    console.log(results2);
-    if (!search) {
-      setBooksFound([])
-    } else {
-      setBooksFound(results2)
+    // let results2 = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
+
+    // console.log("results2");
+    // console.log(results2);
+
+    // if (!search) {
+    //   setBooksFound([])
+    // } else {
+    //   setBooksFound(results2)
+    // }
+
+    // WORKING CODE ABOVE
+
+
+    let authorResults = bookArr.filter(x => x.author_name.toLowerCase().includes(search.toLowerCase()));
+    let titleResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
+    let lowPriceResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
+    let topPriceResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
+
+
+    if (diffSearch) {
+
+      console.log("CLCSOOCS")
     }
+      // if (!search) {
+      //   setBooksFound([])
+      // } else {
+      //   setBooksFound(authorResults)
+      // }
+    
+
+    
+
+     
+    
+
+    
   }, [search])
 
-  const handleChange1 = (event) => {
-    if (event.target.checked && checkState2 || event.target.checked && checkState3
-      || event.target.checked && checkState4) {
-      setCheckState1(false)
+
+  const handleChange = event => {
+    if (event.target.checked) {
+      setDiffSearch(true)
+      setSelected(event.target.value);
+      
+    } else {
+      setDiffSearch(false)
 
     }
-    
-    else if (event.target.checked && !checkState2 || event.target.checked && !checkState3
-      || event.target.checked && !checkState4) {
-      setCheckState1(true)
-    }
-    else {
-      setCheckState1(false)
-    }
-    setAuthorSearch(current => !current);
+    setDiffSearch(current => !current);
   };
 
-  const handleChange2 = (event) => {
-    if (event.target.checked && checkState1 || event.target.checked && checkState3 ||
-      event.target.checked && checkState4) {
-      setCheckState2(false)
-
-    }
-    
-    else if (event.target.checked && !checkState1 || event.target.checked && !checkState3
-      || event.target.checked && !checkState4) {
-      setCheckState2(true)
-
-    }
-    
-    
-    else {
-      setCheckState2(false)
-
-    }
-    setTitleSearch(current => !current);
-  };
-
-  const handleChange3 = (event) => {
-    if (event.target.checked && checkState1 || event.target.checked && checkState2 ||
-      event.target.checked && checkState4) {
-      setCheckState3(false)
-
-    }
-
-    else if (event.target.checked && !checkState1 || event.target.checked && !checkState2
-      || event.target.checked && !checkState4) {
-      setCheckState3(true)
-
-    }
-
-
-    else {
-      setCheckState3(false)
-
-    }
-    setLowPriceSearch(current => !current);
-  };
-
-  const handleChange4 = (event) => {
-    if (event.target.checked && checkState1 || event.target.checked && checkState2 ||
-      event.target.checked && checkState3) {
-      setCheckState4(false)
-
-    }
-
-    else if (event.target.checked && !checkState1 || event.target.checked && !checkState2
-      || event.target.checked && !checkState3) {
-      setCheckState4(true)
-
-    }
-
-
-    else {
-      setCheckState4(false)
-
-    }
-    setTopPriceSearch(current => !current);
-  };
-
-
- 
+  console.log(diffSearch)
+  console.log("diffSearch")
+  
   
   return (
       <>
-        <form >
+      <form >
+        
+
+        Filter By: {" "}
+        <input
+          value="yes"
+          checked={selected === 'yes'}
+          type="radio"
+          name="search"
+          onChange={handleChange}
+        /> Author { }
+        <input type="radio" name="search" value={titleSearch} /> Title {}
+        <input type="radio" name="search" value={lowPriceSearch} /> Low Price {}
+        <input type="radio" name="search" value={topPriceSearch} /> Top Price {}
+
+        <br />
+        <br /> 
+
           <label className='search--input' >Search Here: </label>
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           /> 
 
-        
-        
-              
-                {/* <p>Select your size:</p>
-                <div>
-                  <input type="radio" name="size" value="XS" id="xs">
-                    <label for="xs">XS</label>
-                </div>
-                <div>
-                  <input type="radio" name="size" value="S" id="s">
-                    <label for="s">S</label>
-                </div>
-                <div>
-                  <input type="radio" name="size" value="M" id="m">
-                    <label for="m">M</label>
-                </div>
-                <div>
-                  <input type="radio" name="size" value="L" id="l">
-                    <label for="l">L</label>
-                </div>
-                <div>
-                  <input type="radio" name="size" value="XL" id="xl">
-                    <label for="xl">XL</label>
-                </div>
-                <div>
-                  <input type="radio" name="size" value="XXL" id="xxl">
-                    <label for="xxl">XXL</label>
-                </div> */}
-              
-              Filter By: 
-        <input checked={checkState1} type="checkbox" value={authorSearch} onChange={handleChange1 } /> Author
-        <input checked={checkState2} type="checkbox" value={titleSearch} onChange={handleChange2} /> Title
-        <input checked={checkState3} type="checkbox" value={lowPriceSearch} onChange={handleChange3} /> Low Price
-        <input checked={checkState4} type="checkbox" value={topPriceSearch} onChange={handleChange4} /> Top Price
 
-
-        
       </form>
       
       {/* <div className="card" >

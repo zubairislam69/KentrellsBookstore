@@ -46,7 +46,9 @@ app.post("/orders", (req, res) => {
 
 app.post("/books", (req, res) => {
     db.query(
-        "SELECT * FROM Book", (err, result) => {
+        `SELECT *, a.name AS author_name 
+        FROM book b, Book_Author ba JOIN author a 
+        WHERE ba.bookID = b.bookID AND a.authorID = ba.authorID`, (err, result) => {
         if (err) {
             console.log(err)
         }
@@ -111,6 +113,11 @@ app.post("/checkout", (req, res) => {
     const cardExp = req.body.cardExp
 
     console.log(cardName)
+    console.log(cardNum)
+
+    console.log(cardCVV)
+    console.log(cardExp)
+
 
     db.query(
         "INSERT INTO Orders VALUES (?, ?, ?, ?)", [orderID, profileID, price, date], (err, result) => {
