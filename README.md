@@ -21,4 +21,5 @@ After installing VS-Code:
 14) In the second terminal write "npm run dev"
 15) To stop code go into each terminal respectively and press ctrl+c
 16) Also Copy all the SQL files in the folder SQL_For_Kentrells Bookstore in a schema created in your MYSQL workbench
-17) after this is done go back into you project in VS-code and in the backend/dbFiles/dbConfig.js file and update the host, user, and password to the ones set by your own Workbench
+17) Additionally you should copy the views 1 by 1 into the schema from the pdf file in SQL_For_Kentrells Bookstore
+18) after this is done go back into you project in VS-code and in the backend/dbFiles/dbConfig.js file and update the host, user, and password to the ones set by your own Workbench
