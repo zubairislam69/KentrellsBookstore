@@ -59,12 +59,17 @@ const Cart = ({ CartItems, handleAddProducts, handleRemoveProducts, setCart }) =
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    window.location.reload();
+    // window.location.reload();
+    alert("Order Placed")
+    setCart([]);
+    navigate('/');
+
     const orderInfo = {
       profileID: profileID, price: parseFloat(totalPrice).toFixed(2),
       ordersBookID: ordersBookID, cardNum: cardNum, cardName: cardName, cardCVV: cardCVV, cardExp: cardExp
 
     };
+
 
     const response = await Axios.post(
       "http://localhost:5000/checkout",
