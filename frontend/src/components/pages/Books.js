@@ -23,6 +23,7 @@ const Books = ({ handleAddProducts }) => {
   const [cheapBookArr, setCheapBookArr] = useState([])
   const [gtAVGBookArr, setGtAVGBookArr] = useState([])
 
+  const [anyPriceFantasy, setAnyPriceFantasy] = useState([])
 
 
   const settings = {
@@ -94,6 +95,24 @@ const Books = ({ handleAddProducts }) => {
     Axios.post('http://localhost:5000/greaterthanavg').then((response) => {
       response.data.map((books) => {
         setGtAVGBookArr((prevState) => [...prevState, {
+          bookID: books.bookID,
+          title: books.title,
+          price: books.price,
+          genre: books.genre,
+          isbn: books.isbn,
+          publication_date: books.publication_date,
+          publisherID: books.publisherID,
+          age_level: books.age_level,
+          src: books.src
+        }])
+      })
+    }).catch(error => {
+      console.log(error.response)
+    });
+
+    Axios.post('http://localhost:5000/anyPriceFantasy').then((response) => {
+      response.data.map((books) => {
+        setAnyPriceFantasy((prevState) => [...prevState, {
           bookID: books.bookID,
           title: books.title,
           price: books.price,
@@ -246,6 +265,40 @@ const Books = ({ handleAddProducts }) => {
         </div>
         ))}
       </Slider>
+
+      <br/> <br/>
+      <h2> Books that are higher prices than any book in Fantasy Genre </h2>
+
+      <Slider {...settings}>
+        {cheapBookArr.map((item) => (
+          <div style={{ width: 300 }} className="card" >
+            <div className="card-top">
+              <img src={item.src} />
+              <h1> {item.title} </h1>
+            </div>
+            <div className="card-bottom">
+              <h3> {item.price} </h3>
+              <p className="category"> {item.genre} </p>
+            </div>
+            <Modal
+              handleAddProducts={handleAddProducts}
+              src={item.src}
+              title={item.title}
+              price={item.price}
+              date={item.publication_date}
+              genre={item.genre}
+              age={item.age_level}
+              isbn={item.isbn}
+              bookID={item.bookID}
+            />
+            <button className="card-button"
+              onClick={() => handleAddProducts(item)} >
+              Add To Cart
+            </button>
+          </div>
+        ))}
+      </Slider>
+
     </div>
   );
 }

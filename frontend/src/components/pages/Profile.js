@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import "./Profile.css"
 import pfp from "../images/anonPFP.png"
-import Main from "./profilePages/Main"
 import Orders from "./profilePages/Orders"
 import Account from "./profilePages/Account"
 import Axios from 'axios'
@@ -48,9 +47,6 @@ const Profile = () => {
       setOrders(response2.data)
       setActive("Orders")
     });
-
-    // setOrders(response2.data)
-    // setActive("Orders")
   }
 
   return (
@@ -67,13 +63,11 @@ const Profile = () => {
         </div>
 
         <div className='button-container'>
-          <button className='btn' onClick={() => setActive("Main")}>Summary</button >
         <button className='btn' onClick={handleSubmit}>Orders</button >
           <button className='btn' onClick={() => setActive("Account")}>Account</button>
           <button className='btn' onClick={handleLogout}>Logout</button>
         </div>
         <div className='right-container'>
-          {active === "Main" && <Main />}
           {active === "Orders" && <Orders orders={orders} />}
           {active === "Account" && <Account />}
         </div>     
