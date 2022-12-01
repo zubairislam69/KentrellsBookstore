@@ -2,30 +2,30 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
 
-function CardItem(props) {
-    const { handleAddProducts } = props;
-    const {genre, id, title, price, src, age, isbn, publicationDate } = props;
-    
+function CardItem(props, {handleAddProducts }) {
+    console.log("props")
+    console.log(props)
+        
     return (
         <>
             <li className='cards__item'>                
                 <Link className='cards__item__link'>
                     <div className='cards__item__info'>
                         <img className='cards__item__img'
-                        src={src}
+                        src={props.src}
                         />
-                        <h5 className='cards__item__text'>{title}</h5>
-                        <h6 className='cards__item__text'>{price}</h6>
+                        <h5 className='cards__item__text'>{props.title}</h5>
+                        <h6 className='cards__item__text'>{props.price}</h6>
                         <Modal
                             handleAddProducts = {handleAddProducts}
-                            src={src}
-                            title={title}
-                            price={price}
-                            date={publicationDate}
-                            genre={genre}
-                            age={age}
-                            isbn={isbn}
-                            bookID = {id}
+                            src={props.src}
+                            title={props.title}
+                            price={props.price}
+                            date={props.publicationDate}
+                            genre={props.genre}
+                            age={props.age}
+                            isbn={props.isbn}
+                            bookID = {props.id}
                         />
                         <button className="card-button"
                             onClick={() => handleAddProducts(props)} >

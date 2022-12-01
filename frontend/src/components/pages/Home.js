@@ -219,7 +219,7 @@ const Home = ({ handleAddProducts }) => {
                 <h1> {item.title} </h1>
               </div>
             <div className="card-bottom">
-              <h3> {item.price}</h3>
+              <h3>  <s>{(item.price*(1+item.discount)).toFixed(2)}</s> Now: {item.price}</h3>
               <p className="category"> {item.genre} </p>
             </div>
             <Modal

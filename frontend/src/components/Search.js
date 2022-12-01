@@ -3,15 +3,42 @@ import Axios from 'axios'
 import CardItem from './CardItem'
 import './Cards.css'
 import './search.css'
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./pages/Books.css"
+import Modal from '../components/Modal';
 
+function Arrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", background: "black" }}
+      onClick={onClick}
+    />
+  );
+}
 
-const Search = () => {
+const Search = ({ handleAddProducts }) => {
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    variableWidth: true,
+    nextArrow: <Arrow />,
+    prevArrow: <Arrow />
+  };
   const [search, setSearch] = useState("")
   const [bookArr, setBookArr] = useState([])
   const [booksFound, setBooksFound] = useState([])
 
   const [authorSearch, setAuthorSearch] = useState(false);
   const [titleSearch, setTitleSearch] = useState(false);
+  const [publisherSearch, setPublisherSearch] = useState(false);
   const [lowPriceSearch, setLowPriceSearch] = useState(false);
   const [topPriceSearch, setTopPriceSearch] = useState(false);
   
@@ -30,6 +57,7 @@ const Search = () => {
           isbn: books.isbn,
           publication_date: books.publication_date,
           publisherID: books.publisherID,
+          PublisherName: books.PublisherName,
           age_level: books.age_level,
           src: books.src,
           author_name: books.author_name
@@ -51,6 +79,7 @@ const Search = () => {
   useEffect(() => {
 
     let authorResults = bookArr.filter(x => x.author_name.toLowerCase().includes(search.toLowerCase()));
+    let publisherResults = bookArr.filter(x => x.PublisherName.toLowerCase().includes(search.toLowerCase()));
     let titleResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
     let lowPriceResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
     let topPriceResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
@@ -92,6 +121,15 @@ const Search = () => {
       }
     }
 
+    else if (filter === "publisher") {
+
+      if (!search) {
+        setBooksFound([])
+      } else {
+        setBooksFound(publisherResults)
+      }
+    }
+
   }, [search])
 
 
@@ -130,7 +168,6 @@ const Search = () => {
   
   return (
     <>
-
       <form>
         <p> Filter By: </p>
         <div>
@@ -150,6 +187,15 @@ const Search = () => {
             checked={filter === 'title'}
             onChange={handleChange}
           /> Title {}
+
+          <input
+            name="search"
+
+            type="radio"
+            value="publisher"
+            checked={filter === 'publisher'}
+            onChange={handleChange}
+          /> Publisher {}
           <input
             name="search"
 
@@ -188,24 +234,40 @@ const Search = () => {
         </div>
       </div> */}
       <div className='search-container'>
-      {booksFound.map((item) => (
-        <CardItem
-          title={item.title}
-          id={item.id}
-          price={item.price}
-          age={item.age_level}
-          genre={item.genre}
-          publicationDate={item.publication_date}
-          isbn={item.isbn}
-          src={item.src}
-          
-        />
-      ))}
-      
+        <Slider {...settings}>
+        {booksFound.map((item) => (
+          <div style={{ width:300 }} className="card" >
+            <div className="card-top">
+              <img src={item.src} />
+              <h1> {item.title} </h1>
+            </div>
+          <div className="card-bottom">
+            <h3> {item.price}</h3>
+            <p className="category"> {item.genre} </p>
+          </div>
+          <Modal
+            handleAddProducts={handleAddProducts}
+            src={item.src}
+            title={item.title}
+            price={item.price}
+            date={item.publication_date}
+            genre={item.genre}
+            age={item.age_level}
+            isbn={item.isbn}
+            bookID = {item.bookID}
+          />
+          <button
+            className="card-button"
+            onClick={() => handleAddProducts(item)} >
+              Add To Cart
+          </button>
+        </div>
+      ))} 
+    </Slider>      
       </div>
-
-      
+    
       </>
+      
   )
 }
 

@@ -54,7 +54,6 @@ function App() {
       <div className="container">
 
         <Routes >
-          <Route path="/search" element={<Search />} />
           <Route path="/" element={<Home 
           CartItems={CartItems}
           handleAddProducts={handleAddProducts}

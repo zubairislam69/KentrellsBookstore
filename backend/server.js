@@ -46,9 +46,9 @@ app.post("/orders", (req, res) => {
 
 app.post("/books", (req, res) => {
     db.query(
-        `SELECT *, a.name AS author_name 
-        FROM book b, Book_Author ba JOIN author a 
-        WHERE ba.bookID = b.bookID AND a.authorID = ba.authorID`, (err, result) => {
+        `SELECT distinct *, a.name AS author_name, p.publisherName
+        FROM Book_Author ba JOIN author a, Published_Books p JOIN book b
+        WHERE ba.bookID = b.bookID AND a.authorID = ba.authorID AND p.title = b.title`, (err, result) => {
         if (err) {
             console.log(err)
         }
@@ -66,6 +66,27 @@ app.post("/fantasy", (req, res) => {
             res.send(result)
         })
 })
+
+app.post("/cheapbooks", (req, res) => {
+    db.query(
+        "select * from cheap_books, book where book.isbn = cheap_books.isbn",  (err, result) => {
+            if (err) {
+                console.log(err)
+            }
+            res.send(result)
+        })
+})
+
+app.post("/greaterthanavg", (req, res) => {
+    db.query(
+        "Select * from Greater_Than_Avg",  (err, result) => {
+            if (err) {
+                console.log(err)
+            }
+            res.send(result)
+        })
+})
+
 
 
 
