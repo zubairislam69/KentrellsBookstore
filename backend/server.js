@@ -87,6 +87,16 @@ app.post("/greaterthanavg", (req, res) => {
         })
 })
 
+app.post("/anyPriceFantasy", (req, res) => {
+    db.query(
+        "Select * from Book_Price", (err, result) => {
+            if (err) {
+                console.log(err)
+            }
+            res.send(result)
+        })
+})
+
 
 
 

@@ -21,6 +21,18 @@ function Arrow(props) {
 }
 
 const Search = ({ handleAddProducts }) => {
+  const [search, setSearch] = useState("")
+  const [bookArr, setBookArr] = useState([])
+  const [booksFound, setBooksFound] = useState([])
+
+  const [authorSearch, setAuthorSearch] = useState(false);
+  const [titleSearch, setTitleSearch] = useState(false);
+  const [publisherSearch, setPublisherSearch] = useState(false);
+  const [lowPriceSearch, setLowPriceSearch] = useState(false);
+  const [topPriceSearch, setTopPriceSearch] = useState(false);
+
+  const [diffSearch, setDiffSearch] = useState(false);
+  const [filter, setFilter] = useState('');
 
   const settings = {
     dots: true,
@@ -32,19 +44,6 @@ const Search = ({ handleAddProducts }) => {
     nextArrow: <Arrow />,
     prevArrow: <Arrow />
   };
-  const [search, setSearch] = useState("")
-  const [bookArr, setBookArr] = useState([])
-  const [booksFound, setBooksFound] = useState([])
-
-  const [authorSearch, setAuthorSearch] = useState(false);
-  const [titleSearch, setTitleSearch] = useState(false);
-  const [publisherSearch, setPublisherSearch] = useState(false);
-  const [lowPriceSearch, setLowPriceSearch] = useState(false);
-  const [topPriceSearch, setTopPriceSearch] = useState(false);
-  
-  const [diffSearch, setDiffSearch] = useState(false);
-  const [filter, setFilter] = useState('');
-
 
   useEffect(() => {
     Axios.post('http://localhost:5000/books').then((response) => {
@@ -66,101 +65,41 @@ const Search = ({ handleAddProducts }) => {
     }).catch(error => {
       console.log(error.response)
     });
-
-    let authorResults = bookArr.filter(x => x.author_name.toLowerCase().includes(search.toLowerCase()));
-    let titleResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
-    let lowPriceResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
-    let topPriceResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
-
-
-    
   }, [])
  
   useEffect(() => {
-
     let authorResults = bookArr.filter(x => x.author_name.toLowerCase().includes(search.toLowerCase()));
     let publisherResults = bookArr.filter(x => x.PublisherName.toLowerCase().includes(search.toLowerCase()));
     let titleResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
-    let lowPriceResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
-    let topPriceResults = bookArr.filter(x => x.title.toLowerCase().includes(search.toLowerCase()));
-
 
     if (filter === "author") {
-
-     if (!search) {
+      if (!search) 
         setBooksFound([])
-      } else {
+      else 
         setBooksFound(authorResults)
-      }
-    }
-
-    else if (filter === "lowPrice") {
-
-      if (!search) {
-        setBooksFound([])
-      } else {
-        setBooksFound(lowPriceResults)
-      }
-    }
-
-    else if (filter === "topPrice") {
-
-      if (!search) {
-        setBooksFound([])
-      } else {
-        setBooksFound(topPriceResults)
-      }
     }
 
     else if (filter === "title") {
-
-      if (!search) {
+      if (!search) 
         setBooksFound([])
-      } else {
-        setBooksFound(titleResults)
-      }
+      else 
+        setBooksFound(titleResults) 
     }
 
     else if (filter === "publisher") {
-
-      if (!search) {
+      if (!search) 
         setBooksFound([])
-      } else {
-        setBooksFound(publisherResults)
-      }
+      else 
+        setBooksFound(publisherResults)      
     }
-
   }, [search])
-
-
-
-  console.log("filter")
-  console.log(filter)
 
   const handleChange = (event) => {
     setFilter(event.target.value)
-
-    console.log("event.target.value")
-    console.log(event.target.checked)
-
-    if (event.target.checked) {
+    if (event.target.checked) 
       setDiffSearch(true)
-    } else {
+    else 
       setDiffSearch(false)
-
-    }
-
-    //   if (event.target.checked) {
-    //     setDiffSearch(true)
-
-    //   } else {
-    //     setDiffSearch(false)
-
-    //   }
-    //   setDiffSearch(current => !current);
-    // };
-
- 
   }
 
   console.log("diffSearch")
@@ -173,7 +112,6 @@ const Search = ({ handleAddProducts }) => {
         <div>
           <input
             name="search"
-
             type="radio"
             value="author"
             checked={filter === 'author'}
@@ -181,7 +119,6 @@ const Search = ({ handleAddProducts }) => {
           /> Author {}
           <input
             name="search"
-
             type="radio"
             value="title"
             checked={filter === 'title'}
@@ -190,29 +127,11 @@ const Search = ({ handleAddProducts }) => {
 
           <input
             name="search"
-
             type="radio"
             value="publisher"
             checked={filter === 'publisher'}
             onChange={handleChange}
           /> Publisher {}
-          <input
-            name="search"
-
-            type="radio"
-            value="lowPrice"
-            checked={filter === 'lowPrice'}
-            onChange={handleChange}
-          /> Low Price {}
-
-          <input
-            name="search"
-
-            type="radio"
-            value="topPrice"
-            checked={filter === 'topPrice'}
-            onChange={handleChange}
-          /> Top Price {}
         </div>
       </form>
 
@@ -222,17 +141,8 @@ const Search = ({ handleAddProducts }) => {
         onChange={(e) => setSearch(e.target.value)}
       /> 
         <br />
-        <br /> 
-
-          
-
+      <br /> 
       
-      {/* <div className="card" >
-        <div className="card-top">
-
-          <h1> {item.title} </h1>
-        </div>
-      </div> */}
       <div className='search-container'>
         <Slider {...settings}>
         {booksFound.map((item) => (
