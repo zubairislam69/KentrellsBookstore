@@ -1,4 +1,4 @@
-# Kentrells Bookstore
+# Database Management Systems Final Project: Kentrells Bookstore
 
 ### Zubair Islam (100778152), Hanzalah Patel (100785622), Mohsin Rehman (100788028), Tal Marianovski (100700316), Sabeh Khalid(100754735)
 
